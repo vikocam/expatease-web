@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "3.2.1",
+    "@phosphor-icons/core": "^2.1.1",
     "astro": "^4.15.0"
   }
 }

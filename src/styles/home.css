@@ -14,6 +14,11 @@ body.home{
   --cream:#eef1f5;
   --card:#ffffff;
   --border:#dde2e9;
+  /* the page is light-only: pin text tokens too, so a dark theme set on <html>
+     (data-theme="dark", e.g. by a preview viewer) can't turn text light on light */
+  --text:#1c1f26;
+  --muted:#5f6670;
+  color-scheme:light;
   --ease:cubic-bezier(.16,1,.3,1);
 }
 

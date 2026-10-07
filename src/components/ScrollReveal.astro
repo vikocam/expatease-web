@@ -17,5 +17,11 @@
       { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
     );
     els.forEach((el) => io.observe(el));
+    // safety net: if nothing was observed shortly after load, show everything
+    setTimeout(() => {
+      if (!document.querySelector('.reveal.in-view, .reveal-stagger.in-view')) {
+        els.forEach((el) => el.classList.add('in-view'));
+      }
+    }, 1200);
   })();
 </script>

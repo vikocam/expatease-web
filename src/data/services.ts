@@ -14,7 +14,7 @@ export const services: Service[] = [
     tag: 'Huurrecht',
     title: 'Huurrecht & Wonen',
     teaser: 'Huurovereenkomsten, borg, onderhoud, servicekosten, VvE-zaken en burenrecht.',
-    testimonial: '"Kreeg mijn borg van €1.500 binnen twee weken terug." — Carlos M.',
+    testimonial: '"Kreeg mijn borg van €1.500 binnen twee weken terug." - Carlos M.',
   },
   {
     slug: 'kooprecht',
@@ -22,7 +22,7 @@ export const services: Service[] = [
     tag: 'Kooprecht',
     title: 'Kooprecht & Consumentenrecht',
     teaser: "Aan- en verkoop van woningen en auto's, wanprestatie, verborgen gebreken, aanneming van werk.",
-    testimonial: '"Duidelijk advies over mijn verbouwingsgeschil." — Anna K.',
+    testimonial: '"Duidelijk advies over mijn verbouwingsgeschil." - Anna K.',
   },
   {
     slug: 'overheid',
@@ -30,6 +30,6 @@ export const services: Service[] = [
     tag: 'Overheid',
     title: 'Overheid & Administratie',
     teaser: 'Vergunningen, bezwaarprocedures en administratieve zaken met gemeenten en instanties.',
-    testimonial: '"Eindelijk iemand die de gemeente-procedures uitlegde." — Marc D.',
+    testimonial: '"Eindelijk iemand die de gemeente-procedures uitlegde." - Marc D.',
   },
 ];

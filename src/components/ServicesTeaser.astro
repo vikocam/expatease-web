@@ -1,14 +1,9 @@
 ---
 import { services } from '../data/services';
+import ServiceIcon from './ServiceIcon.astro';
 interface Props { lang?: 'nl' | 'en' | 'es' | 'fr'; }
 const { lang = 'nl' } = Astro.props;
 const base = lang === 'nl' ? '' : `/${lang}`;
-// line icons (Phosphor, light weight) instead of emoji
-import houseIcon from '@phosphor-icons/core/assets/light/house-line-light.svg?raw';
-import handshakeIcon from '@phosphor-icons/core/assets/light/handshake-light.svg?raw';
-import bankIcon from '@phosphor-icons/core/assets/light/bank-light.svg?raw';
-const icons: Record<string, string> = { huurrecht: houseIcon, kooprecht: handshakeIcon, overheid: bankIcon };
-const svg = (slug: string) => (icons[slug] ?? '').replace('<svg ', '<svg aria-hidden="true" focusable="false" ');
 ---
 <section class="block" id="diensten">
   <div class="wrap">
@@ -21,10 +16,7 @@ const svg = (slug: string) => (icons[slug] ?? '').replace('<svg ', '<svg aria-hi
     <div class="grid3 reveal-stagger">
       {services.map((s) => (
         <div class="card">
-          <div class="top svc-top">
-            <span class="svc-icon" set:html={svg(s.slug)} />
-            <span class="svc-mark" set:html={svg(s.slug)} />
-          </div>
+          <ServiceIcon slug={s.slug} />
           <div class="body">
             <h3>{s.title}</h3>
             <p>{s.teaser}</p>

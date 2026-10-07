@@ -1,9 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { services } from '../../data/services';
+import ServiceIcon from '../../components/ServiceIcon.astro';
 ---
 <Layout
-  title="Diensten — Juridisch Advies voor Expats | ExpatEase"
+  title="Diensten | Juridisch Advies voor Expats | ExpatEase"
   description="Onze rechtsgebieden: huurrecht, kooprecht & consumentenrecht, en overheidszaken voor expats in Regio Haaglanden."
   lang="nl"
   active="diensten"
@@ -13,15 +14,15 @@ import { services } from '../../data/services';
     <div class="wrap">
       <div class="breadcrumb"><a href="/">Home</a> / Diensten</div>
       <h1>Onze rechtsgebieden</h1>
-      <p class="sub">Geschillen en advies in de privésfeer voor expats in Haaglanden — geen arbeidsrecht.</p>
+      <p class="sub">Geschillen en advies in de privésfeer voor expats in Haaglanden. Geen arbeidsrecht.</p>
     </div>
   </section>
 
   <section class="block">
-    <div class="wrap grid3">
+    <div class="wrap grid3 reveal-stagger">
       {services.map((s) => (
         <div class="card">
-          <div class="top">{s.icon}</div>
+          <ServiceIcon slug={s.slug} />
           <div class="body">
             <h3>{s.title}</h3>
             <p>{s.teaser}</p>

@@ -1,0 +1,13 @@
+---
+// Line icon (Phosphor, light weight) + quiet watermark for a service card header.
+import houseIcon from '@phosphor-icons/core/assets/light/house-line-light.svg?raw';
+import handshakeIcon from '@phosphor-icons/core/assets/light/handshake-light.svg?raw';
+import bankIcon from '@phosphor-icons/core/assets/light/bank-light.svg?raw';
+interface Props { slug: string; }
+const icons: Record<string, string> = { huurrecht: houseIcon, kooprecht: handshakeIcon, overheid: bankIcon };
+const svg = (icons[Astro.props.slug] ?? '').replace('<svg ', '<svg aria-hidden="true" focusable="false" ');
+---
+<div class="top svc-top">
+  <span class="svc-icon" set:html={svg} />
+  <span class="svc-mark" set:html={svg} />
+</div>

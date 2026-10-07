@@ -17,7 +17,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       'Hulp bij huurgeschillen in Den Haag en Haaglanden: borg terugvorderen, onderhoudsklachten, servicekosten en VvE-zaken. Advies in het Nederlands, Engels, Spaans en Frans.',
     h1: 'Huurrecht & Wonen voor Expats in The Hague',
     intro:
-      'Als expat in Nederland loop je sneller tegen onduidelijke huurcontracten of een lastige verhuurder aan — vaak zonder te weten wat je rechten zijn. ExpatEase helpt je helder en snel, in jouw eigen taal.',
+      'Als expat in Nederland loop je sneller tegen onduidelijke huurcontracten of een lastige verhuurder aan, vaak zonder te weten wat je rechten zijn. ExpatEase helpt je helder en snel, in jouw eigen taal.',
     covers: [
       'Controle en advies bij huurovereenkomsten voor woonruimte',
       'Geschillen tussen huurder en verhuurder (borg, onderhoud, servicekosten)',
@@ -37,7 +37,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       },
       {
         q: 'Kan ik als expat zonder BSN al juridisch advies krijgen?',
-        a: 'Ja. Een lopend huurgeschil staat los van je inschrijving bij de gemeente — we kunnen direct starten met de beoordeling van je situatie.',
+        a: 'Ja. Een lopend huurgeschil staat los van je inschrijving bij de gemeente. We kunnen direct starten met de beoordeling van je situatie.',
       },
     ],
   },
@@ -48,7 +48,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       'Juridisch advies bij aankoop van woningen en auto\'s, verborgen gebreken, wanprestatie en geschillen met aannemers in Nederland.',
     h1: 'Kooprecht & Consumentenrecht',
     intro:
-      'Grote aankopen — een huis, een auto, een verbouwing — brengen risico\'s met zich mee die in Nederland anders geregeld zijn dan in je thuisland. Wij vertalen dat naar heldere, werkbare stappen.',
+      'Grote aankopen (een huis, een auto, een verbouwing) brengen risico\'s met zich mee die in Nederland anders geregeld zijn dan in je thuisland. Wij vertalen dat naar heldere, werkbare stappen.',
     covers: [
       "Geschillen bij koop en verkoop van onroerend goed en roerende zaken (zoals auto's)",
       'Consumentenrecht, wanprestatie en verborgen gebreken',
@@ -74,7 +74,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       'Hulp bij vergunningen, bezwaar- en administratieve procedures bij gemeenten en instanties in Regio Haaglanden voor expats.',
     h1: 'Overheid & Administratie',
     intro:
-      'Nederlandse bureaucratie is voor iedereen ondoorzichtig — voor expats des te meer. Van vergunningsaanvragen tot bezwaarprocedures: wij zorgen dat je de juiste stappen op tijd zet.',
+      'Nederlandse bureaucratie is voor iedereen ondoorzichtig, voor expats des te meer. Van vergunningsaanvragen tot bezwaarprocedures: wij zorgen dat je de juiste stappen op tijd zet.',
     covers: [
       'Advies en bijstand bij vergunningen',
       'Bezwaarprocedures bij gemeenten en instanties',
@@ -82,14 +82,14 @@ export const serviceContent: Record<string, ServiceContent> = {
     ],
     process: [
       'Analyse van de beschikking of het besluit waar het om gaat',
-      'Toetsing van de bezwaartermijn (vaak maar 6 weken — snel schakelen is essentieel)',
+      'Toetsing van de bezwaartermijn (vaak maar 6 weken, dus snel schakelen is essentieel)',
       'Opstellen en indienen van een onderbouwd bezwaarschrift',
       'Vertegenwoordiging tijdens een eventuele hoorzitting',
     ],
     faq: [
       {
         q: 'Hoeveel tijd heb ik om bezwaar te maken tegen een besluit van de gemeente?',
-        a: 'In de meeste gevallen geldt een termijn van zes weken vanaf de dag na bekendmaking van het besluit. Wacht niet — neem bij twijfel direct contact op.',
+        a: 'In de meeste gevallen geldt een termijn van zes weken vanaf de dag na bekendmaking van het besluit. Wacht niet: neem bij twijfel direct contact op.',
       },
     ],
   },

@@ -7,17 +7,20 @@ import ServicesTeaser from '../components/ServicesTeaser.astro';
 import TeamTeaser from '../components/TeamTeaser.astro';
 import SpreekuurBanner from '../components/SpreekuurBanner.astro';
 import ContactBlock from '../components/ContactBlock.astro';
+import '@fontsource-variable/geist';
+import '../styles/home.css';
 ---
 <Layout
   title="ExpatEase — Juridisch Advies voor Expats in Den Haag"
   description="Rechtshulp en advies bij huurgeschillen, aankopen en gemeentezaken voor expats in Regio Haaglanden. Meertalig, pragmatisch, snel."
   lang="nl"
   path="/"
+  bodyClass="home"
 >
   <Hero
     title="Legal Advice & Dispute Resolution for Expats in The Hague"
-    subtitle="Heldere, pragmatische rechtshulp in jouw eigen taal — voor huurkwesties, aankopen en geschillen met de gemeente."
-    ctaPrimary="Book a consultation"
+    subtitle="Heldere, pragmatische rechtshulp in jouw eigen taal, voor huurkwesties, aankopen en geschillen met de gemeente."
+    ctaPrimary="Boek een consult"
     ctaSecondary="Explore our services"
     ctaSecondaryHref="/diensten/"
   >

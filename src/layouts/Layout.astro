@@ -13,9 +13,11 @@ interface Props {
   active?: 'diensten' | 'over-ons' | 'spreekuur' | 'blog' | 'contact' | '';
   /** relative path without locale prefix, e.g. "/diensten/huurrecht/" — used to build hreflang alternates */
   path?: string;
+  /** optional class on <body>, used to scope page-specific styles */
+  bodyClass?: string;
 }
 
-const { title, description, lang = 'nl', active = '', path = '/' } = Astro.props;
+const { title, description, lang = 'nl', active = '', path = '/', bodyClass } = Astro.props;
 const site = (Astro.site?.origin ?? 'https://expatease.nl') + import.meta.env.BASE_URL.replace(/\/$/, '');
 const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
 // Solo NL bestaat vandaag. Zodra /en/, /es/, /fr/ echt gebouwd zijn, hier toevoegen —
@@ -57,7 +59,7 @@ const hrefFor = (l: string) => (l === 'nl' ? `${site}${path}` : `${site}/${l}${p
       priceRange: '€€',
     })}></script>
   </head>
-  <body>
+  <body class={bodyClass}>
     <Header lang={lang} active={active} />
     <main>
       <slot />

@@ -10,7 +10,7 @@ export class HomePage {
   constructor(page: Page) {
     this.page = page;
     this.heading = page.getByRole('heading', { level: 1 });
-    this.bookConsultationLink = page.getByRole('link', { name: 'Book a consultation' });
+    this.bookConsultationLink = page.getByRole('main').getByRole('link', { name: 'Boek een consult' });
     this.wizardHeading = page.getByRole('heading', { name: 'Vind je oplossing in 3 stappen' });
     this.cookieBanner = page.getByRole('dialog', { name: 'Cookiemelding' });
   }

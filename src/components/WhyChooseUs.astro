@@ -1,9 +1,9 @@
 ---
 const reasons = [
-  { n: '01', title: 'Als je ons inhuurt, krijg je ons', text: 'Je dossier wordt nooit doorgestuurd — je werkt rechtstreeks met Lodewijk of Arjan, van begin tot eind.' },
-  { n: '02', title: 'Lokale expertise in Haaglanden', text: 'Bekend met de bureaucratie in Den Haag, Delft, Rijswijk en omstreken.' },
-  { n: '03', title: 'Persoonlijk, geen callcenter', text: 'Je bericht wordt gelezen en beantwoord door een jurist, niet door een intake-team.' },
-  { n: '04', title: 'Meertalig toegankelijk', text: 'Advies in het Nederlands, Engels, Spaans en Frans.' },
+  { title: 'Als je ons inhuurt, krijg je ons', text: 'Je dossier wordt nooit doorgestuurd. Je werkt rechtstreeks met Lodewijk of Arjan, van begin tot eind.' },
+  { title: 'Lokale expertise in Haaglanden', text: 'Bekend met de bureaucratie in Den Haag, Delft, Rijswijk en omstreken.' },
+  { title: 'Persoonlijk, geen callcenter', text: 'Je bericht wordt gelezen en beantwoord door een jurist, niet door een intake-team.' },
+  { title: 'Meertalig toegankelijk', text: 'Advies in het Nederlands, Engels, Spaans en Frans.' },
 ];
 ---
 <section class="why-section">
@@ -15,11 +15,8 @@ const reasons = [
     <div class="why-list reveal-stagger">
       {reasons.map((r) => (
         <div class="why-row">
-          <span class="why-n">{r.n}</span>
-          <div>
-            <h4>{r.title}</h4>
-            <p>{r.text}</p>
-          </div>
+          <h4>{r.title}</h4>
+          <p>{r.text}</p>
         </div>
       ))}
     </div>
@@ -28,15 +25,13 @@ const reasons = [
 
 <style>
   .why-section{background:var(--cream);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:72px 0}
-  .whylayout{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}
-  @media (max-width:820px){.whylayout{grid-template-columns:1fr;gap:32px}}
-  .why-intro h2{margin:0 0 16px;font-size:28px;color:var(--navy)}
-  .why-intro p{margin:0;color:#4b5460;font-size:15px;max-width:360px}
-  .why-list{display:flex;flex-direction:column}
-  .why-row{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid var(--border)}
-  .why-row:first-child{padding-top:0}
-  .why-row:last-child{border-bottom:none}
-  .why-n{font-family:'Fraunces',Georgia,serif;font-size:22px;color:var(--gold-dark);flex:none;width:34px;padding-top:2px}
-  .why-row h4{margin:0 0 6px;font-size:16px;color:var(--navy);font-family:'Fraunces',Georgia,serif;font-weight:600}
-  .why-row p{margin:0;font-size:14px;color:#4b5460}
+  /* intro stacked above a 2x2 grid; collapses to one column under 768px */
+  .whylayout{display:grid;gap:40px}
+  .why-intro h2{margin:0 0 12px;font-size:28px;color:var(--navy)}
+  .why-intro p{margin:0;color:var(--muted);font-size:15.5px;max-width:58ch}
+  .why-list{display:grid;grid-template-columns:repeat(2,1fr);gap:36px 56px}
+  @media (max-width:767px){.why-list{grid-template-columns:1fr;gap:28px}}
+  .why-row{border-top:2px solid var(--navy);padding-top:16px}
+  .why-row h4{margin:0 0 6px;font-size:17px;color:var(--navy);font-weight:600}
+  .why-row p{margin:0;font-size:14.5px;color:var(--muted);max-width:44ch}
 </style>

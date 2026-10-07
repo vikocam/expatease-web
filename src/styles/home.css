@@ -1,0 +1,127 @@
+/*
+  Home page refresh (Taste Skill, "redesign - preserve").
+  Scoped to <body class="home"> so the other pages are untouched until approved.
+  Brand kept: navy + gold accent, logo, copy, URLs, form fields.
+
+  Shape rule for this page: buttons and pills 10px, panels and cards 14px.
+*/
+
+body.home{
+  /* cool neutral surfaces instead of the warm cream family; navy + gold stay */
+  --bg:#f7f8fa;
+  --altbg:#eef1f5;
+  --cream:#eef1f5;
+  --card:#ffffff;
+  --border:#dde2e9;
+  --muted:#4f5b6b;
+  --text:#18202c;
+  /* darker gold for small text so it passes WCAG AA on light surfaces */
+  --gold-dark:#8a5d0f;
+  font-family:'Work Sans',system-ui,sans-serif;
+}
+
+/* Typography: one sans display face (self-hosted Geist) instead of Fraunces */
+body.home :is(h1,h2,h3,h4,.logo){
+  font-family:'Geist Variable','Work Sans',system-ui,sans-serif;
+  font-weight:600;
+  letter-spacing:-.02em;
+}
+body.home h1{text-wrap:balance;font-size:clamp(30px,3.2vw,42px);line-height:1.08;letter-spacing:-.03em;margin:0 0 16px}
+body.home .sechead h2,
+body.home .why-intro h2{font-size:clamp(26px,2.6vw,32px);letter-spacing:-.025em}
+
+/* Buttons: tactile press, one radius */
+body.home .btn{border-radius:10px}
+body.home .btn:active{transform:translateY(0) scale(.98)}
+body.home .btn-outline{border-color:#c5ccd6;background:var(--card)}
+
+/* Hero */
+body.home .herogrid{grid-template-columns:1.2fr .8fr;gap:56px}
+@media (max-width:880px){
+  body.home .herogrid{grid-template-columns:1fr;gap:32px}
+  /* until the real photo lands, keep the brand panel short on phones */
+  body.home .heroart{aspect-ratio:16/9}
+}
+body.home .hero{background:var(--bg);padding:56px 0 48px}
+body.home .sub{color:var(--muted);font-size:17.5px;max-width:46ch}
+body.home .heroart{
+  border-radius:14px;
+  background:var(--navy);
+  box-shadow:0 24px 48px -28px rgba(12,47,95,.55);
+}
+body.home .heroart::before{
+  /* quiet light falloff instead of the striped texture */
+  background:radial-gradient(120% 80% at 80% 0%, rgba(255,255,255,.06), transparent 55%);
+}
+body.home .heroart-cap p{margin:0;font-size:13.5px;color:#c8d3e2}
+body.home .heroart-cap .heroart-names{
+  font-family:'Geist Variable',system-ui,sans-serif;
+  font-size:20px;font-weight:600;letter-spacing:-.01em;color:#f7f8fa;margin-bottom:2px
+}
+
+/* Wizard: flat panel, no floating gold dash */
+body.home .wizard{border-radius:14px;margin-top:40px;box-shadow:0 18px 36px -26px rgba(12,47,95,.35)}
+body.home .wizard::before{display:none}
+body.home .wizard h3{font-size:18px}
+body.home .pill{border-radius:10px;border-width:1.5px;box-shadow:none;font-weight:600}
+body.home .pill:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(12,47,95,.35);border-color:var(--navy)}
+body.home .pill.sel{background:var(--navy);transform:none;box-shadow:none}
+body.home .pill-urgent.sel{background:var(--red)}
+body.home .wsteps span.done{background:var(--navy)}
+
+/* Section rhythm */
+body.home section.block{padding:88px 0}
+body.home .sechead{margin-bottom:40px}
+body.home .sechead p{max-width:58ch}
+
+/* Services: full-width rows instead of three identical emoji cards */
+body.home .svc-list{display:grid;border-top:1px solid var(--border)}
+body.home .svc-row{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,1.4fr) minmax(0,1.3fr) auto;
+  gap:32px;align-items:start;
+  padding:28px 8px;border-bottom:1px solid var(--border);
+  transition:background .2s ease;
+}
+body.home .svc-row:hover{background:var(--altbg)}
+body.home .svc-row h3{margin:0;font-size:21px;color:var(--navy);line-height:1.2}
+body.home .svc-teaser{margin:0;color:var(--muted);font-size:15px}
+body.home .svc-quote{margin:0;padding-left:16px;border-left:2px solid var(--gold)}
+body.home .svc-quote blockquote{margin:0;font-size:14.5px;color:var(--text);font-style:italic;line-height:1.5}
+body.home .svc-quote figcaption{margin-top:6px;font-size:13px;color:var(--muted)}
+body.home .svc-more{font-weight:600;font-size:14px;color:var(--navy);white-space:nowrap;padding-top:3px}
+body.home .svc-row:hover .svc-more{text-decoration:underline;text-underline-offset:4px}
+@media (max-width:1023px){
+  body.home .svc-row{grid-template-columns:1fr 1fr;gap:16px 28px}
+  body.home .svc-more{grid-column:1/-1}
+}
+@media (max-width:767px){
+  body.home .svc-row{grid-template-columns:1fr;gap:12px;padding:24px 0}
+}
+
+/* Team */
+body.home .tcard{border-radius:14px}
+body.home .tcard span.role{color:var(--gold-dark)}
+body.home .linkarrow{color:var(--navy)}
+
+/* Spreekuur band */
+body.home .urgency{padding:40px 0}
+body.home .urow h3{font-size:21px}
+
+/* Contact */
+body.home .field input,
+body.home .field select,
+body.home .field textarea{border-radius:10px;border-color:#c5ccd6;background:var(--card)}
+body.home .field input::placeholder,
+body.home .field textarea::placeholder{color:#6b7584}
+body.home .field input:focus-visible,
+body.home .field select:focus-visible,
+body.home .field textarea:focus-visible{outline:2px solid var(--navy);outline-offset:1px;border-color:var(--navy)}
+body.home .field label{color:var(--text)}
+body.home .infobox,
+body.home .directcard{border-radius:14px}
+body.home .directcard small{color:#13753a}
+
+/* WhatsApp buttons: light text on #25D366 is ~1.8:1, dark text passes AA */
+body.home .mfloat .wa,
+body.home #waResult{color:#0a2e17 !important}

@@ -3,27 +3,35 @@ import { services } from '../data/services';
 interface Props { lang?: 'nl' | 'en' | 'es' | 'fr'; }
 const { lang = 'nl' } = Astro.props;
 const base = lang === 'nl' ? '' : `/${lang}`;
+// testimonial strings look like: "Quote text." — Name
+const splitQuote = (t: string) => {
+  const [q, who = ''] = t.split(/\s+[—–]\s+/);
+  return { quote: q.replace(/^["“]|["”]$/g, ''), who };
+};
 ---
 <section class="block" id="diensten">
   <div class="wrap">
     <div class="sechead">
       <div>
         <h2>Onze rechtsgebieden</h2>
-        <p>Geschillen en advies in de privésfeer — voor particulieren, geen arbeidsrecht.</p>
+        <p>Geschillen en advies in de privésfeer, voor particulieren. Geen arbeidsrecht.</p>
       </div>
     </div>
-    <div class="grid3 reveal-stagger">
-      {services.map((s) => (
-        <div class="card">
-          <div class="top">{s.icon}</div>
-          <div class="body">
+    <div class="svc-list reveal-stagger">
+      {services.map((s) => {
+        const { quote, who } = splitQuote(s.testimonial);
+        return (
+          <a class="svc-row" href={`${base}/diensten/${s.slug}/`}>
             <h3>{s.title}</h3>
-            <p>{s.teaser}</p>
-            <div class="testi"><span class="stars">★★★★★</span>{s.testimonial}</div>
-            <a class="readmore" href={`${base}/diensten/${s.slug}/`}>Lees meer &rarr;</a>
-          </div>
-        </div>
-      ))}
+            <p class="svc-teaser">{s.teaser}</p>
+            <figure class="svc-quote">
+              <blockquote>“{quote}”</blockquote>
+              {who && <figcaption>{who}</figcaption>}
+            </figure>
+            <span class="svc-more">Lees meer &rarr;</span>
+          </a>
+        );
+      })}
     </div>
   </div>
 </section>

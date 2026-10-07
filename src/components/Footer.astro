@@ -2,13 +2,15 @@
 interface Props { lang?: 'nl' | 'en' | 'es' | 'fr'; }
 const { lang = 'nl' } = Astro.props;
 const base = lang === 'nl' ? '' : `/${lang}`;
+// same label as the header CTA, so the page has one name per intent
+const bookLabel = { nl: 'Boek een consult', en: 'Book a Consultation', es: 'Reserva una Consulta', fr: 'Réserver un Rendez-vous' }[lang];
 ---
 <footer class="site">
   <div class="wrap">
     <div class="footgrid">
       <div>
         <h5>ExpatEase</h5>
-        <p style="max-width:340px">Juridisch advies en geschillenbeslechting voor expats in Regio Haaglanden — huurrecht, kooprecht en overheidszaken.</p>
+        <p style="max-width:340px">Juridisch advies en geschillenbeslechting voor expats in Regio Haaglanden: huurrecht, kooprecht en overheidszaken.</p>
         <div class="social-links">
           <a href="https://www.linkedin.com/company/expatease" target="_blank" rel="noopener" aria-label="ExpatEase op LinkedIn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.58c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.68H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56z"/></svg>
@@ -45,6 +47,6 @@ const base = lang === 'nl' ? '' : `/${lang}`;
   </div>
 </footer>
 <div class="mfloat">
-  <a class="wa" href="https://wa.me/31600000000?text=Hallo%20ExpatEase%2C%20ik%20heb%20een%20juridische%20vraag." target="_blank" rel="noopener">💬 WhatsApp</a>
-  <a class="bk" href={`${base}/contact/`}>📅 Book Consultation</a>
+  <a class="wa" href="https://wa.me/31600000000?text=Hallo%20ExpatEase%2C%20ik%20heb%20een%20juridische%20vraag." target="_blank" rel="noopener">WhatsApp</a>
+  <a class="bk" href={`${base}/contact/`}>{bookLabel}</a>
 </div>

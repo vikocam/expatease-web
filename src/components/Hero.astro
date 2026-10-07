@@ -1,0 +1,30 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
+  ctaSecondaryHref: string;
+}
+const { title, subtitle, ctaPrimary, ctaSecondary, ctaSecondaryHref } = Astro.props;
+---
+<section class="hero">
+  <div class="wrap herogrid">
+    <div class="reveal">
+      <h1>{title}</h1>
+      <p class="sub">{subtitle}</p>
+      <div class="herobtns">
+        <a class="btn btn-gold" href="#contact-teaser">{ctaPrimary}</a>
+        <a class="btn btn-outline" href={ctaSecondaryHref}>{ctaSecondary}</a>
+      </div>
+      <slot />
+    </div>
+    <div class="heroart reveal" style="transition-delay:.15s">
+      <div class="heroart-cap">
+        <span class="tag">Betrouwbaar &amp; Internationaal</span>
+        <h3>ExpatEase — Den Haag</h3>
+        <p>Lodewijk Nortier &amp; Arjan Nouwen</p>
+      </div>
+    </div>
+  </div>
+</section>

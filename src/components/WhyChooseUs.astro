@@ -1,0 +1,42 @@
+---
+const reasons = [
+  { n: '01', title: 'Als je ons inhuurt, krijg je ons', text: 'Je dossier wordt nooit doorgestuurd — je werkt rechtstreeks met Lodewijk of Arjan, van begin tot eind.' },
+  { n: '02', title: 'Lokale expertise in Haaglanden', text: 'Bekend met de bureaucratie in Den Haag, Delft, Rijswijk en omstreken.' },
+  { n: '03', title: 'Persoonlijk, geen callcenter', text: 'Je bericht wordt gelezen en beantwoord door een jurist, niet door een intake-team.' },
+  { n: '04', title: 'Meertalig toegankelijk', text: 'Advies in het Nederlands, Engels, Spaans en Frans.' },
+];
+---
+<section class="why-section">
+  <div class="wrap whylayout">
+    <div class="why-intro reveal">
+      <h2>Waarom ExpatEase</h2>
+      <p>Geen anoniem kantoor. Twee juristen die je bij naam kennen, en die precies weten wat er komt kijken bij recht in een land dat niet het jouwe is.</p>
+    </div>
+    <div class="why-list reveal-stagger">
+      {reasons.map((r) => (
+        <div class="why-row">
+          <span class="why-n">{r.n}</span>
+          <div>
+            <h4>{r.title}</h4>
+            <p>{r.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-section{background:var(--cream);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:72px 0}
+  .whylayout{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}
+  @media (max-width:820px){.whylayout{grid-template-columns:1fr;gap:32px}}
+  .why-intro h2{margin:0 0 16px;font-size:28px;color:var(--navy)}
+  .why-intro p{margin:0;color:#4b5460;font-size:15px;max-width:360px}
+  .why-list{display:flex;flex-direction:column}
+  .why-row{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid var(--border)}
+  .why-row:first-child{padding-top:0}
+  .why-row:last-child{border-bottom:none}
+  .why-n{font-family:'Fraunces',Georgia,serif;font-size:22px;color:var(--gold-dark);flex:none;width:34px;padding-top:2px}
+  .why-row h4{margin:0 0 6px;font-size:16px;color:var(--navy);font-family:'Fraunces',Georgia,serif;font-weight:600}
+  .why-row p{margin:0;font-size:14px;color:#4b5460}
+</style>

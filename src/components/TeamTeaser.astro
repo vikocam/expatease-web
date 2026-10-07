@@ -1,0 +1,26 @@
+---
+interface Props { lang?: 'nl' | 'en' | 'es' | 'fr'; }
+const { lang = 'nl' } = Astro.props;
+const base = lang === 'nl' ? '' : `/${lang}`;
+---
+<section class="block alt" id="team">
+  <div class="wrap">
+    <div class="sechead">
+      <div>
+        <h2>Je vertrouwde team in Den Haag</h2>
+        <p>Twee ervaren juristen, één doel: heldere rechtshulp voor internationals.</p>
+      </div>
+      <a class="linkarrow" href={`${base}/over-ons/`}>Meer over ons team &rarr;</a>
+    </div>
+    <div class="teamgrid reveal-stagger">
+      <div class="tcard">
+        <div class="avatar">LN</div>
+        <div><h4>Lodewijk Nortier</h4><span class="role">Jurist — 18+ jaar ervaring</span><p>Internationale oriëntatie, vloeiend Spaans, pragmatische en resultaatgerichte aanpak.</p></div>
+      </div>
+      <div class="tcard">
+        <div class="avatar">AN</div>
+        <div><h4>Arjan Nouwen</h4><span class="role">Jurist — 20+ jaar ervaring</span><p>Communiceert vlot met expats, empathisch en toegankelijk, vertaalt complexe kwesties naar praktisch advies.</p></div>
+      </div>
+    </div>
+  </div>
+</section>

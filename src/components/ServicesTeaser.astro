@@ -1,0 +1,29 @@
+---
+import { services } from '../data/services';
+interface Props { lang?: 'nl' | 'en' | 'es' | 'fr'; }
+const { lang = 'nl' } = Astro.props;
+const base = lang === 'nl' ? '' : `/${lang}`;
+---
+<section class="block" id="diensten">
+  <div class="wrap">
+    <div class="sechead">
+      <div>
+        <h2>Onze rechtsgebieden</h2>
+        <p>Geschillen en advies in de privésfeer — voor particulieren, geen arbeidsrecht.</p>
+      </div>
+    </div>
+    <div class="grid3 reveal-stagger">
+      {services.map((s) => (
+        <div class="card">
+          <div class="top">{s.icon}</div>
+          <div class="body">
+            <h3>{s.title}</h3>
+            <p>{s.teaser}</p>
+            <div class="testi"><span class="stars">★★★★★</span>{s.testimonial}</div>
+            <a class="readmore" href={`${base}/diensten/${s.slug}/`}>Lees meer &rarr;</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

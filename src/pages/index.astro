@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TriageWizard from '../components/TriageWizard.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import ServicesTeaser from '../components/ServicesTeaser.astro';
+import TeamTeaser from '../components/TeamTeaser.astro';
+import SpreekuurBanner from '../components/SpreekuurBanner.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+---
+<Layout
+  title="ExpatEase — Juridisch Advies voor Expats in Den Haag"
+  description="Rechtshulp en advies bij huurgeschillen, aankopen en gemeentezaken voor expats in Regio Haaglanden. Meertalig, pragmatisch, snel."
+  lang="nl"
+  path="/"
+>
+  <Hero
+    title="Legal Advice & Dispute Resolution for Expats in The Hague"
+    subtitle="Heldere, pragmatische rechtshulp in jouw eigen taal — voor huurkwesties, aankopen en geschillen met de gemeente."
+    ctaPrimary="Book a consultation"
+    ctaSecondary="Explore our services"
+    ctaSecondaryHref="/diensten/"
+  >
+    <TriageWizard whatsappNumber="31600000000" />
+  </Hero>
+  <WhyChooseUs />
+  <ServicesTeaser lang="nl" />
+  <TeamTeaser lang="nl" />
+  <SpreekuurBanner lang="nl" />
+  <ContactBlock title="Neem contact op" asTeaser={true} />
+</Layout>

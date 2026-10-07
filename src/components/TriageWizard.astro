@@ -1,0 +1,106 @@
+---
+// Client-side interactive component. In Astro this is a plain island: all
+// markup renders as static HTML, and the small script below hydrates on load
+// without needing React/Vue — keeping the page at ~0kb JS framework cost.
+interface Props { whatsappNumber?: string; }
+const { whatsappNumber = '31600000000' } = Astro.props;
+---
+<div class="wizard" id="wizard" data-wa={whatsappNumber}>
+  <h3>Vind je oplossing in 3 stappen</h3>
+  <p class="wsub">Beantwoord drie korte vragen — wij koppelen je direct aan de juiste jurist.</p>
+  <div class="wsteps"><span id="s1"></span><span id="s2"></span><span id="s3"></span></div>
+
+  <div class="wstep" data-step="1">
+    <div class="pills">
+      <button class="pill" data-v="Huurrecht">🏠 Huurrecht &amp; Wonen</button>
+      <button class="pill" data-v="Kooprecht">📄 Kooprecht &amp; Consument</button>
+      <button class="pill" data-v="Overheid">🏛️ Overheid &amp; Administratie</button>
+    </div>
+  </div>
+  <div class="wstep" data-step="2" style="display:none">
+    <div class="pills">
+      <button class="pill" data-v="Den Haag">📍 Den Haag</button>
+      <button class="pill" data-v="Delft">📍 Delft</button>
+      <button class="pill" data-v="Rijswijk">📍 Rijswijk</button>
+      <button class="pill" data-v="Wassenaar">📍 Wassenaar</button>
+      <button class="pill" data-v="Leidschendam-Voorburg">📍 Leidschendam-Voorburg</button>
+    </div>
+  </div>
+  <div class="wstep" data-step="3" style="display:none">
+    <div class="pills">
+      <button class="pill pill-urgent" data-v="Urgent">🔴 Urgent (binnen 24u)</button>
+      <button class="pill" data-v="Deze week">⏳ Deze week</button>
+      <button class="pill" data-v="Oriënterend">🔎 Ik oriënteer me nog</button>
+    </div>
+  </div>
+
+  <div class="wresult" id="wresult">
+    <strong>Bedankt!</strong> Op basis van je antwoorden kunnen Lodewijk of Arjan je direct helpen met <span id="rSituatie"></span> in <span id="rRegio"></span>.
+    <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <a class="btn" id="waResult" style="background:#25D366;color:#f7f5f0" target="_blank" rel="noopener" href="#">💬 Stuur direct via WhatsApp</a>
+      <a class="linkarrow" style="font-size:13px" href="/contact/">of liever per e-mail &rarr;</a>
+    </div>
+    <p style="margin:10px 0 0;font-size:12px;color:var(--muted)">Je bericht is al ingevuld — je hoeft alleen op versturen te drukken.</p>
+  </div>
+  <span class="wback" id="wback" style="display:none">&larr; Andere keuze maken</span>
+</div>
+
+<script>
+  (function () {
+    const root = document.getElementById('wizard');
+    if (!root) return;
+    const waNumber = root.dataset.wa;
+    const steps = [1, 2, 3];
+    let cur = 1;
+    const answers: Record<number, string> = {};
+    const dots: Record<number, HTMLElement> = {
+      1: document.getElementById('s1')!,
+      2: document.getElementById('s2')!,
+      3: document.getElementById('s3')!,
+    };
+    function paintDots() {
+      steps.forEach((n) => dots[n].classList.toggle('done', n <= cur - 1));
+    }
+    paintDots();
+
+    document.querySelectorAll('.wstep').forEach((stepEl) => {
+      stepEl.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest('.pill') as HTMLElement | null;
+        if (!btn) return;
+        stepEl.querySelectorAll('.pill').forEach((p) => p.classList.remove('sel'));
+        btn.classList.add('sel');
+        const stepNum = Number((stepEl as HTMLElement).dataset.step);
+        answers[stepNum] = btn.dataset.v || '';
+
+        setTimeout(() => {
+          if (stepNum < 3) {
+            (stepEl as HTMLElement).style.display = 'none';
+            const next = document.querySelector(`.wstep[data-step="${stepNum + 1}"]`) as HTMLElement;
+            next.style.display = 'block';
+            cur = stepNum + 1;
+            paintDots();
+            document.getElementById('wback')!.style.display = 'inline-block';
+          } else {
+            document.querySelectorAll('.wstep').forEach((s) => ((s as HTMLElement).style.display = 'none'));
+            document.getElementById('rSituatie')!.textContent = answers[1];
+            document.getElementById('rRegio')!.textContent = answers[2];
+            const rawMsg = `Hallo ExpatEase, ik kom van de website.\n- Situatie: ${answers[1]}\n- Regio: ${answers[2]}\n- Urgentie: ${answers[3]}`;
+            (document.getElementById('waResult') as HTMLAnchorElement).href = `https://wa.me/${waNumber}?text=${encodeURIComponent(rawMsg)}`;
+            document.getElementById('wresult')!.classList.add('show');
+            cur = 4;
+            paintDots();
+          }
+        }, 180);
+      });
+    });
+
+    document.getElementById('wback')!.addEventListener('click', () => {
+      document.querySelectorAll('.wstep').forEach((s) => ((s as HTMLElement).style.display = 'none'));
+      document.getElementById('wresult')!.classList.remove('show');
+      (document.querySelector('.wstep[data-step="1"]') as HTMLElement).style.display = 'block';
+      cur = 1;
+      paintDots();
+      document.getElementById('wback')!.style.display = 'none';
+    });
+  })();
+</script>

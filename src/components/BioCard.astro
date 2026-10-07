@@ -1,0 +1,63 @@
+---
+interface Props {
+  name: string;
+  initials: string;
+  role: string;
+  quote: string;
+  bio: string;
+  tags: string[];
+  photoSrc?: string; // p.ej. "/images/team/lodewijk.jpg" — cuando la foto real esté lista
+  reverse?: boolean;
+  whatsappNumber?: string;
+}
+const { name, initials, role, quote, bio, tags, photoSrc, reverse = false, whatsappNumber = '31600000000' } = Astro.props;
+---
+<div class={`biorow reveal ${reverse ? 'reverse' : ''}`}>
+  <div class="biophoto">
+    {photoSrc ? (
+      <img src={photoSrc} alt={`Foto van ${name}, ${role} bij ExpatEase`} loading="lazy" />
+    ) : (
+      <div class="biophoto-placeholder" role="img" aria-label={`Foto van ${name} volgt binnenkort`}>
+        <svg viewBox="0 0 200 240" class="silhouette" aria-hidden="true">
+          <circle cx="100" cy="88" r="46" fill="rgba(255,255,255,.14)"/>
+          <path d="M20 240c0-58 36-96 80-96s80 38 80 96" fill="rgba(255,255,255,.14)"/>
+        </svg>
+        <span>{initials}</span>
+        <small>Foto volgt binnenkort</small>
+      </div>
+    )}
+  </div>
+  <div class="biotext">
+    <span class="role">{role}</span>
+    <h2>{name}</h2>
+    <p class="bioquote">&ldquo;{quote}&rdquo;</p>
+    <p>{bio}</p>
+    <div class="biotags">
+      {tags.map((t) => <span class="biotag">{t}</span>)}
+    </div>
+    <a class="linkarrow" href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener">
+      💬 Stuur een WhatsApp-bericht &rarr;
+    </a>
+  </div>
+</div>
+
+<style>
+  .biorow{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center;padding:44px 0}
+  .biorow.reverse{grid-template-columns:1.15fr .85fr}
+  .biorow.reverse .biophoto{order:2}
+  .biorow.reverse .biotext{order:1}
+  @media (max-width:760px){.biorow,.biorow.reverse{grid-template-columns:1fr}.biorow.reverse .biophoto,.biorow.reverse .biotext{order:0}}
+  .biophoto{aspect-ratio:4/5;border-radius:20px;overflow:hidden;box-shadow:0 20px 40px -22px rgba(12,47,95,.35);border:1px solid var(--border)}
+  .biophoto img{width:100%;height:100%;object-fit:cover}
+  .biophoto-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(160deg,var(--navy) 0%,var(--navy-light) 65%,#1c3a63 100%);position:relative;overflow:hidden}
+  .biophoto-placeholder::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 75% 15%, rgba(223,160,44,.30), transparent 45%),repeating-linear-gradient(115deg, rgba(255,255,255,.03) 0 2px, transparent 2px 22px)}
+  .biophoto-placeholder .silhouette{position:absolute;bottom:0;width:78%;opacity:.9}
+  .biophoto-placeholder span{position:relative;font-size:44px;font-weight:800;color:#f7f5f0;letter-spacing:.02em;margin-top:-10px}
+  .biophoto-placeholder small{position:relative;font-size:11px;color:#c8d3e2;background:rgba(0,0,0,.25);padding:4px 10px;border-radius:999px;letter-spacing:.02em}
+  .biotext .role{font-size:12px;font-weight:700;color:var(--gold-dark);text-transform:uppercase;letter-spacing:.06em}
+  .biotext h2{margin:6px 0 14px;font-size:27px;color:var(--navy)}
+  .bioquote{font-size:17px;font-style:italic;color:var(--navy);border-left:3px solid var(--gold);padding-left:16px;margin:0 0 16px}
+  .biotext > p:not(.bioquote){color:var(--text);font-size:15px;line-height:1.65}
+  .biotags{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 16px}
+  .biotag{font-size:12px;font-weight:600;color:var(--navy);background:var(--altbg);border:1px solid var(--border);padding:6px 12px;border-radius:999px}
+</style>

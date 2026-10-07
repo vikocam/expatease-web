@@ -1,0 +1,34 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { services } from '../../data/services';
+---
+<Layout
+  title="Diensten — Juridisch Advies voor Expats | ExpatEase"
+  description="Onze rechtsgebieden: huurrecht, kooprecht & consumentenrecht, en overheidszaken voor expats in Regio Haaglanden."
+  lang="nl"
+  active="diensten"
+  path="/diensten/"
+>
+  <section class="pagehero">
+    <div class="wrap">
+      <div class="breadcrumb"><a href="/">Home</a> / Diensten</div>
+      <h1>Onze rechtsgebieden</h1>
+      <p class="sub">Geschillen en advies in de privésfeer voor expats in Haaglanden — geen arbeidsrecht.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid3">
+      {services.map((s) => (
+        <div class="card">
+          <div class="top">{s.icon}</div>
+          <div class="body">
+            <h3>{s.title}</h3>
+            <p>{s.teaser}</p>
+            <a class="readmore" href={`/diensten/${s.slug}/`}>Lees meer &rarr;</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>

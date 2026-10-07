@@ -1,0 +1,74 @@
+---
+interface Props { title?: string; asTeaser?: boolean; }
+const { title = 'Neem contact op', asTeaser = false } = Astro.props;
+---
+<section class={asTeaser ? 'block alt' : 'block'} id="contact-teaser">
+  <div class="wrap">
+    <div class="sechead reveal">
+      <div>
+        <h2>{title}</h2>
+        <p class="contact-trust">Het eerste gesprek is gratis en vrijblijvend. Lodewijk of Arjan leest je bericht zelf en reageert persoonlijk — geen callcenter, geen bot.</p>
+      </div>
+    </div>
+    <div class="contactgrid reveal-stagger">
+      <form id="contact-form">
+        <div class="field"><label>Naam</label><input required placeholder="Volledige naam" name="name" /></div>
+        <div class="field"><label>E-mail</label><input required type="email" placeholder="naam@voorbeeld.com" name="email" /></div>
+        <div class="field">
+          <label>Onderwerp</label>
+          <select name="subject">
+            <option>Huurrecht & Wonen</option>
+            <option>Kooprecht & Consumentenrecht</option>
+            <option>Overheid & Administratie</option>
+            <option>Anders</option>
+          </select>
+        </div>
+        <div class="field"><label>Bericht</label><textarea rows="4" placeholder="Beschrijf kort je situatie" name="message"></textarea></div>
+        <button class="btn btn-gold" type="submit">Verstuur bericht</button>
+        <p class="sent" style="display:none;color:var(--gold-dark);font-size:13px;margin-top:10px">Bedankt — we nemen zo snel mogelijk contact op.</p>
+        <p class="form-security">🔒 Je gegevens blijven tussen ons · Persoonlijk antwoord binnen 24 werkuren</p>
+      </form>
+
+      <div class="contact-side">
+        <div class="infobox">
+          <h4>ExpatEase — Juridisch Adviesbureau</h4>
+          <p>Regio Haaglanden · Den Haag, Nederland</p>
+          <p>KVK-nummer: 00000000 · BTW-nummer: NL000000000B00</p>
+        </div>
+
+        <div class="directcontacts">
+          <p class="directcontacts-label">Liever meteen iemand spreken?</p>
+          <a class="directcard" href="https://wa.me/31600000000" target="_blank" rel="noopener">
+            <span class="avatar-sm avatar-pair">LN<br/>AN</span>
+            <span><strong>Lodewijk &amp; Arjan</strong><small>💬 Eén gedeeld WhatsApp-nummer — direct antwoord</small></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-trust{color:var(--muted);font-size:14.5px;max-width:480px;margin:8px 0 0}
+  .form-security{font-size:11.5px;color:var(--muted);margin-top:10px}
+  .contact-side{display:flex;flex-direction:column;gap:18px}
+  .directcontacts{display:flex;flex-direction:column;gap:10px}
+  .directcontacts-label{font-size:12.5px;font-weight:700;color:var(--navy);margin:0}
+  .directcard{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
+  .directcard:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 10px 20px -12px rgba(12,47,95,.3)}
+  .avatar-sm{width:38px;height:38px;border-radius:50%;background:var(--navy);color:#fff;flex:none;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+  .avatar-pair{flex-direction:column;line-height:1;font-size:9px;gap:1px;padding:3px 0}
+  .directcard strong{display:block;font-size:13.5px;color:var(--text)}
+  .directcard small{display:block;font-size:12px;color:#25D366;font-weight:600}
+</style>
+
+<script>
+  const form = document.getElementById('contact-form');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // TODO: wire up to a form backend (e.g. Formspree, a serverless function,
+    // or the Netlify/Cloudflare Forms integration) — Astro static output has
+    // no built-in server to receive this.
+    (form.querySelector('.sent') as HTMLElement).style.display = 'block';
+  });
+</script>

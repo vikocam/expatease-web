@@ -1,0 +1,42 @@
+---
+import LogoIcon from './LogoIcon.astro';
+
+interface Props {
+  lang?: 'nl' | 'en' | 'es' | 'fr';
+  active?: 'diensten' | 'over-ons' | 'spreekuur' | 'contact' | '';
+}
+const { lang = 'nl', active = '' } = Astro.props;
+
+const base = lang === 'nl' ? '' : `/${lang}`;
+
+const labels: Record<string, Record<string,string>> = {
+  nl: { diensten:'Diensten', overons:'Over Ons', spreekuur:'Spreekuur', contact:'Contact', cta:'Boek een consult' },
+  en: { diensten:'Services', overons:'About Us', spreekuur:'Walk-in Hours', contact:'Contact', cta:'Book a Consultation' },
+  es: { diensten:'Servicios', overons:'Sobre Nosotros', spreekuur:'Consulta Semanal', contact:'Contacto', cta:'Reserva una Consulta' },
+  fr: { diensten:'Services', overons:'À Propos', spreekuur:'Permanence', contact:'Contact', cta:'Réserver un Rendez-vous' },
+};
+const t = labels[lang];
+---
+<header class="site">
+  <div class="wrap headrow">
+    <a class="logo" href={base || '/'}>
+      <LogoIcon />
+      <span>EXPATEASE<small>Juridisch Advies</small></span>
+    </a>
+    <nav class="mainnav">
+      <a href={`${base}/diensten/`} class={active==='diensten' ? 'active' : ''}>{t.diensten}</a>
+      <a href={`${base}/over-ons/`} class={active==='over-ons' ? 'active' : ''}>{t.overons}</a>
+      <a href={`${base}/spreekuur/`} class={active==='spreekuur' ? 'active' : ''}>{t.spreekuur}</a>
+      <a href={`${base}/contact/`} class={active==='contact' ? 'active' : ''}>{t.contact}</a>
+    </nav>
+    <div class="headright">
+      <div class="langsel">
+        <a href="/" class={lang==='nl' ? 'active' : ''}>NL</a>
+        <a href="/en/" class={lang==='en' ? 'active' : ''}>EN</a>
+        <a href="/es/" class={lang==='es' ? 'active' : ''}>ES</a>
+        <a href="/fr/" class={lang==='fr' ? 'active' : ''}>FR</a>
+      </div>
+      <a class="btn btn-gold" href={`${base}/contact/`} style="padding:10px 18px;font-size:13.5px">{t.cta}</a>
+    </div>
+  </div>
+</header>

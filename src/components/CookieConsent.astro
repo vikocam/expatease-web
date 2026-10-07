@@ -1,0 +1,159 @@
+---
+// Cookiemelding conform de Nederlandse Telecommunicatiewet / AVG:
+// - functionele cookies staan altijd aan (noodzakelijk voor de werking van de site)
+// - analytische/marketing cookies staan pas aan ná expliciete toestemming
+// - de keuze wordt onthouden in localStorage, zodat de banner niet steeds terugkomt
+
+interface Props { lang?: 'nl' | 'en' | 'es' | 'fr'; }
+const { lang = 'nl' } = Astro.props;
+
+const t = {
+  nl: {
+    message: 'Wij gebruiken cookies om de website goed te laten werken en, met jouw toestemming, om bezoekersstatistieken te verzamelen. Lees ons',
+    linkText: 'cookiebeleid',
+    settings: 'Instellingen',
+    reject: 'Alleen noodzakelijk',
+    accept: 'Alles accepteren',
+    necessary: 'Noodzakelijk',
+    necessaryDesc: 'vereist voor het functioneren van de website. Kan niet worden uitgeschakeld.',
+    analytics: 'Analytisch',
+    analyticsDesc: 'helpt ons te begrijpen hoe bezoekers de site gebruiken (bijv. Google Analytics, geanonimiseerd).',
+    marketing: 'Marketing',
+    marketingDesc: 'wordt gebruikt om relevante advertenties te tonen op andere sites.',
+    save: 'Voorkeuren opslaan',
+    cookiesHref: '/cookies/',
+  },
+  en: {
+    message: 'We use cookies to make the website work properly and, with your consent, to collect visitor statistics. Read our',
+    linkText: 'cookie policy',
+    settings: 'Settings',
+    reject: 'Necessary only',
+    accept: 'Accept all',
+    necessary: 'Necessary',
+    necessaryDesc: 'required for the website to function. Cannot be disabled.',
+    analytics: 'Analytics',
+    analyticsDesc: 'helps us understand how visitors use the site (e.g. Google Analytics, anonymised).',
+    marketing: 'Marketing',
+    marketingDesc: 'used to show relevant advertising on other sites.',
+    save: 'Save preferences',
+    cookiesHref: '/en/cookies/',
+  },
+  es: {
+    message: 'Usamos cookies para que el sitio funcione correctamente y, con tu consentimiento, para recopilar estadísticas de visitantes. Consulta nuestra',
+    linkText: 'política de cookies',
+    settings: 'Configuración',
+    reject: 'Solo necesarias',
+    accept: 'Aceptar todo',
+    necessary: 'Necesarias',
+    necessaryDesc: 'imprescindibles para el funcionamiento del sitio. No se pueden desactivar.',
+    analytics: 'Analíticas',
+    analyticsDesc: 'nos ayudan a entender cómo se usa el sitio (p. ej. Google Analytics, de forma anónima).',
+    marketing: 'Marketing',
+    marketingDesc: 'se usan para mostrar anuncios relevantes en otros sitios.',
+    save: 'Guardar preferencias',
+    cookiesHref: '/es/cookies/',
+  },
+  fr: {
+    message: "Nous utilisons des cookies pour que le site fonctionne correctement et, avec votre consentement, pour recueillir des statistiques de visite. Consultez notre",
+    linkText: 'politique de cookies',
+    settings: 'Paramètres',
+    reject: 'Nécessaires uniquement',
+    accept: 'Tout accepter',
+    necessary: 'Nécessaires',
+    necessaryDesc: 'indispensables au fonctionnement du site. Ne peuvent pas être désactivés.',
+    analytics: 'Analytiques',
+    analyticsDesc: "nous aident à comprendre comment le site est utilisé (ex. Google Analytics, données anonymisées).",
+    marketing: 'Marketing',
+    marketingDesc: "utilisés pour afficher des publicités pertinentes sur d'autres sites.",
+    save: 'Enregistrer les préférences',
+    cookiesHref: '/fr/cookies/',
+  },
+}[lang];
+---
+<div id="cookie-banner" class="cookiebar" role="dialog" aria-live="polite" aria-label="Cookiemelding" style="display:none">
+  <div class="cookiebar-inner">
+    <p>
+      {t.message} <a href={t.cookiesHref}>{t.linkText}</a>.
+    </p>
+    <div class="cookiebar-actions">
+      <button id="cookie-settings" class="btn btn-outline" type="button">{t.settings}</button>
+      <button id="cookie-reject" class="btn btn-outline" type="button">{t.reject}</button>
+      <button id="cookie-accept" class="btn btn-gold" type="button">{t.accept}</button>
+    </div>
+  </div>
+
+  <div id="cookie-settings-panel" class="cookiebar-panel" hidden>
+    <label class="cookie-row">
+      <input type="checkbox" checked disabled />
+      <span><strong>{t.necessary}</strong> — {t.necessaryDesc}</span>
+    </label>
+    <label class="cookie-row">
+      <input type="checkbox" id="cookie-analytics" />
+      <span><strong>{t.analytics}</strong> — {t.analyticsDesc}</span>
+    </label>
+    <label class="cookie-row">
+      <input type="checkbox" id="cookie-marketing" />
+      <span><strong>{t.marketing}</strong> — {t.marketingDesc}</span>
+    </label>
+    <button id="cookie-save" class="btn btn-gold" type="button" style="margin-top:10px">{t.save}</button>
+  </div>
+</div>
+
+<style>
+  .cookiebar{position:fixed;left:0;right:0;bottom:0;z-index:200;background:var(--card);border-top:1px solid var(--border);box-shadow:0 -10px 30px -20px rgba(0,0,0,.3);padding:16px calc(16px + env(safe-area-inset-left,0px)) calc(16px + env(safe-area-inset-bottom,0px)) calc(16px + env(safe-area-inset-right,0px))}
+  .cookiebar-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .cookiebar-inner p{margin:0;flex:1 1 320px;font-size:13.5px;color:var(--muted)}
+  .cookiebar-inner a{color:var(--navy-light);font-weight:600;text-decoration:underline}
+  .cookiebar-actions{display:flex;gap:10px;flex-wrap:wrap}
+  .cookiebar .btn{padding:10px 16px;font-size:13.5px}
+  .cookiebar-panel{max-width:1120px;margin:14px auto 0;padding-top:14px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:12px}
+  .cookie-row{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text)}
+  .cookie-row input{margin-top:3px}
+</style>
+
+<script>
+  (function () {
+    const KEY = 'expatease-cookie-consent';
+    const banner = document.getElementById('cookie-banner');
+    if (!banner) return;
+
+    function stored() {
+      try {
+        return JSON.parse(localStorage.getItem(KEY) || 'null');
+      } catch {
+        return null;
+      }
+    }
+
+    function applyConsent(consent: { analytics: boolean; marketing: boolean }) {
+      // Hook hier eventuele scripts aan die pas mogen laden ná toestemming,
+      // bijv. het injecteren van het Google Analytics-script als consent.analytics === true.
+      document.dispatchEvent(new CustomEvent('cookie-consent-changed', { detail: consent }));
+    }
+
+    const existing = stored();
+    if (existing) {
+      applyConsent(existing);
+      return; // keuze al gemaakt, banner niet tonen
+    }
+    banner.style.display = 'block';
+
+    function save(consent: { analytics: boolean; marketing: boolean }) {
+      localStorage.setItem(KEY, JSON.stringify({ ...consent, date: new Date().toISOString() }));
+      applyConsent(consent);
+      banner.style.display = 'none';
+    }
+
+    document.getElementById('cookie-accept')?.addEventListener('click', () => save({ analytics: true, marketing: true }));
+    document.getElementById('cookie-reject')?.addEventListener('click', () => save({ analytics: false, marketing: false }));
+    document.getElementById('cookie-settings')?.addEventListener('click', () => {
+      const panel = document.getElementById('cookie-settings-panel')!;
+      panel.hidden = !panel.hidden;
+    });
+    document.getElementById('cookie-save')?.addEventListener('click', () => {
+      const analytics = (document.getElementById('cookie-analytics') as HTMLInputElement).checked;
+      const marketing = (document.getElementById('cookie-marketing') as HTMLInputElement).checked;
+      save({ analytics, marketing });
+    });
+  })();
+</script>

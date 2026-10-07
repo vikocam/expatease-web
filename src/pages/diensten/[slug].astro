@@ -1,0 +1,88 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { services } from '../../data/services';
+import { serviceContent } from '../../data/serviceContent';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug } }));
+}
+
+const { slug } = Astro.params;
+const service = services.find((s) => s.slug === slug)!;
+const content = serviceContent[slug as string];
+---
+<Layout
+  title={content.metaTitle}
+  description={content.metaDescription}
+  lang="nl"
+  active="diensten"
+  path={`/diensten/${slug}/`}
+>
+  <section class="pagehero">
+    <div class="wrap">
+      <div class="breadcrumb"><a href="/">Home</a> / <a href="/diensten/">Diensten</a> / {service.title}</div>
+      <h1>{content.h1}</h1>
+      <p class="sub">{content.intro}</p>
+      <div class="herobtns">
+        <a class="btn btn-gold" href="/contact/">Book a consultation</a>
+        <a class="btn btn-outline" href="https://wa.me/31600000000" target="_blank" rel="noopener">💬 WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap prose">
+      <h2>Wat wij voor je regelen</h2>
+      <ul>
+        {content.covers.map((c) => <li>{c}</li>)}
+      </ul>
+
+      <h2>Hoe het proces eruitziet</h2>
+      <ul>
+        {content.process.map((p, i) => <li><strong>{i + 1}.</strong> {p}</li>)}
+      </ul>
+
+      <h2>Veelgestelde vragen</h2>
+      <div class="faq">
+        {content.faq.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <div class="testi" style="margin-top:30px"><span class="stars">★★★★★</span>{service.testimonial}</div>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap" style="text-align:center">
+      <h2>Klaar om verder te gaan?</h2>
+      <p class="sub" style="margin:0 auto 22px">Plan een gesprek of stuur direct een bericht via WhatsApp.</p>
+      <div class="herobtns" style="justify-content:center">
+        <a class="btn btn-gold" href="/contact/">Boek een consult</a>
+        <a class="btn" style="background:#25D366;color:#f7f5f0" href="https://wa.me/31600000000" target="_blank" rel="noopener">💬 WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  name: 'ExpatEase',
+  areaServed: 'Haaglanden, Netherlands',
+  serviceType: content.h1,
+  description: content.metaDescription,
+})}></script>
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: content.faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+})}></script>

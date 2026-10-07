@@ -1,0 +1,70 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import Analytics from '../components/Analytics.astro';
+import ScrollReveal from '../components/ScrollReveal.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: 'nl' | 'en' | 'es' | 'fr';
+  active?: 'diensten' | 'over-ons' | 'spreekuur' | 'blog' | 'contact' | '';
+  /** relative path without locale prefix, e.g. "/diensten/huurrecht/" — used to build hreflang alternates */
+  path?: string;
+}
+
+const { title, description, lang = 'nl', active = '', path = '/' } = Astro.props;
+const site = (Astro.site?.origin ?? 'https://expatease.nl') + import.meta.env.BASE_URL.replace(/\/$/, '');
+const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
+// Solo NL bestaat vandaag. Zodra /en/, /es/, /fr/ echt gebouwd zijn, hier toevoegen —
+// tot die tijd geeft een hreflang naar niet-bestaande pagina's een 404-signaal aan Google.
+const liveLocales = ['nl'] as const;
+const hrefFor = (l: string) => (l === 'nl' ? `${site}${path}` : `${site}/${l}${path}`);
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={hrefFor(lang)} />
+    {liveLocales.map((l) => <link rel="alternate" hreflang={l} href={hrefFor(l)} />)}
+    <link rel="alternate" hreflang="x-default" href={hrefFor('nl')} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'LegalService',
+      name: 'ExpatEase',
+      description: 'Juridisch adviesbureau voor expats in Regio Haaglanden: huurrecht, kooprecht en overheidszaken.',
+      url: site,
+      areaServed: ['Den Haag', 'Delft', 'Rijswijk', 'Wassenaar', 'Leidschendam-Voorburg'],
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Den Haag',
+        addressCountry: 'NL',
+      },
+      knowsLanguage: ['nl', 'en', 'es', 'fr'],
+      priceRange: '€€',
+    })}></script>
+  </head>
+  <body>
+    <Header lang={lang} active={active} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <CookieConsent lang={lang} />
+    <Analytics />
+    <ScrollReveal />
+  </body>
+</html>

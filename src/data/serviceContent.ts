@@ -12,12 +12,12 @@ export interface ServiceContent {
 export const serviceContent: Record<string, ServiceContent> = {
   huurrecht: {
     slug: 'huurrecht',
-    metaTitle: 'Huurrecht Advocaat voor Expats in Den Haag | ExpatEase',
+    metaTitle: 'Huurrecht Advocaat voor Expats in Den Haag | ExpatAid',
     metaDescription:
       'Hulp bij huurgeschillen in Den Haag en Haaglanden: borg terugvorderen, onderhoudsklachten, servicekosten en VvE-zaken. Advies in het Nederlands, Engels, Spaans en Frans.',
     h1: 'Huurrecht & Wonen voor Expats in The Hague',
     intro:
-      'Als expat in Nederland loop je sneller tegen onduidelijke huurcontracten of een lastige verhuurder aan, vaak zonder te weten wat je rechten zijn. ExpatEase helpt je helder en snel, in jouw eigen taal.',
+      'Als expat in Nederland loop je sneller tegen onduidelijke huurcontracten of een lastige verhuurder aan, vaak zonder te weten wat je rechten zijn. ExpatAid helpt je helder en snel, in jouw eigen taal.',
     covers: [
       'Controle en advies bij huurovereenkomsten voor woonruimte',
       'Geschillen tussen huurder en verhuurder (borg, onderhoud, servicekosten)',
@@ -43,7 +43,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
   kooprecht: {
     slug: 'kooprecht',
-    metaTitle: 'Kooprecht & Consumentenrecht Advies voor Expats | ExpatEase',
+    metaTitle: 'Kooprecht & Consumentenrecht Advies voor Expats | ExpatAid',
     metaDescription:
       'Juridisch advies bij aankoop van woningen en auto\'s, verborgen gebreken, wanprestatie en geschillen met aannemers in Nederland.',
     h1: 'Kooprecht & Consumentenrecht',
@@ -69,15 +69,15 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
   overheid: {
     slug: 'overheid',
-    metaTitle: 'Advies bij Vergunningen & Bezwaarprocedures | ExpatEase',
+    metaTitle: 'Advies bij Vergunningen & Bezwaarprocedures | ExpatAid',
     metaDescription:
-      'Hulp bij vergunningen, bezwaar- en administratieve procedures bij gemeenten en instanties in Regio Haaglanden voor expats.',
+      'Hulp bij vergunningen, bezwaar- en administratieve procedures bij overheidsinstanties in Regio Haaglanden voor expats.',
     h1: 'Overheid & Administratie',
     intro:
       'Nederlandse bureaucratie is voor iedereen ondoorzichtig, voor expats des te meer. Van vergunningsaanvragen tot bezwaarprocedures: wij zorgen dat je de juiste stappen op tijd zet.',
     covers: [
       'Advies en bijstand bij vergunningen',
-      'Bezwaarprocedures bij gemeenten en instanties',
+      'Bezwaarprocedures bij overheidsinstanties',
       'Administratieve procedures en correspondentie met overheidsinstanties',
     ],
     process: [
@@ -88,7 +88,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     ],
     faq: [
       {
-        q: 'Hoeveel tijd heb ik om bezwaar te maken tegen een besluit van de gemeente?',
+        q: 'Hoeveel tijd heb ik om bezwaar te maken tegen een besluit van de overheid?',
         a: 'In de meeste gevallen geldt een termijn van zes weken vanaf de dag na bekendmaking van het besluit. Wacht niet: neem bij twijfel direct contact op.',
       },
     ],

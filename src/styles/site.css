@@ -25,17 +25,24 @@ body{
 /* ---------- Hero ---------- */
 body .hero{background:var(--bg)}
 body .heroart{
-  background:var(--navy);
-  box-shadow:0 24px 48px -28px rgba(12,47,95,.55);
+  background:var(--cream);
+  border:1px solid var(--border);
+  box-shadow:0 24px 48px -28px rgba(12,47,95,.22);
 }
-body .heroart::before{
-  background:radial-gradient(120% 80% at 80% 0%, rgba(255,255,255,.07), transparent 55%);
+body .heroart::before{display:none}
+body .heroart img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+body .heroart.has-photo::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:45%;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(28,31,38,.62));
 }
-body .heroart-cap p{margin:0;font-size:13.5px;color:#c8d3e2}
+body .heroart-cap{z-index:1}
+body .heroart-cap p{margin:0;font-size:13.5px;color:var(--muted)}
 body .heroart-cap .heroart-names{
   font-family:'Fraunces',Georgia,serif;
-  font-size:20px;font-weight:600;color:#f7f8fa;margin-bottom:2px
+  font-size:20px;font-weight:600;color:var(--navy);margin-bottom:2px
 }
+body .heroart.has-photo .heroart-cap p{color:#e6e2da}
+body .heroart.has-photo .heroart-cap .heroart-names{color:#f7f5f0}
 
 /* ---------- Cards: lift on hover, shadow fades in (opacity, not box-shadow) ---------- */
 body .card{position:relative;isolation:isolate;overflow:visible;transition:transform .45s var(--ease)}
@@ -127,15 +134,15 @@ body #waResult{color:#0a2e17 !important} /* dark text on WhatsApp green */
 body .testi{color:var(--muted)}
 
 /* ---------- Services: line icon + quiet watermark instead of emoji ---------- */
-body .svc-top{
+body .card .svc-top{
   height:112px;justify-content:flex-start;align-items:flex-end;
   padding:0 20px 18px;overflow:hidden;
-  background:linear-gradient(140deg,var(--navy) 0%,var(--navy-light) 100%);
+  background:var(--cream);border-bottom:1px solid var(--border);
 }
-body .svc-icon{display:block;width:40px;height:40px;color:var(--gold)}
+body .svc-icon{display:block;width:40px;height:40px;color:var(--gold-dark)}
 body .svc-mark{
   position:absolute;right:-18px;top:-14px;width:150px;height:150px;
-  color:#ffffff;opacity:.07;
+  color:var(--navy);opacity:.07;
 }
 body .svc-icon svg,
 body .svc-mark svg{width:100%;height:100%;display:block}
@@ -166,3 +173,7 @@ body .svc-mark svg{width:100%;height:100%;display:block}
   .pagehero .wrap > :nth-child(3){animation-delay:.12s}
   .pagehero .wrap > :nth-child(4){animation-delay:.18s}
 }
+
+/* Spreekuur banner: light surface instead of deep blue */
+body .urgency{background:var(--bg);color:var(--navy);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+body .urow p{color:var(--muted);font-size:14px}

@@ -29,7 +29,7 @@ export const services: Service[] = [
     icon: '🏛️',
     tag: 'Overheid',
     title: 'Overheid & Administratie',
-    teaser: 'Vergunningen, bezwaarprocedures en administratieve zaken met gemeenten en instanties.',
-    testimonial: '"Eindelijk iemand die de gemeente-procedures uitlegde." - Marc D.',
+    teaser: 'Vergunningen, bezwaarprocedures en administratieve zaken met de overheid.',
+    testimonial: '"Eindelijk iemand die de overheidsprocedures uitlegde." - Marc D.',
   },
 ];

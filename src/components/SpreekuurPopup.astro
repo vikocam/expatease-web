@@ -1,0 +1,68 @@
+---
+// Pop-up over het wekelijkse inloopspreekuur. Verschijnt één keer per sessie,
+// pas nadat de bezoeker een cookiekeuze heeft gemaakt (zodat het modale venster
+// de cookiebanner niet blokkeert). Native <dialog>: Esc, focus-trap en
+// achtergrond-inert komen gratis mee.
+interface Props { lang?: 'nl' | 'en' | 'es' | 'fr'; }
+const { lang = 'nl' } = Astro.props;
+---
+{lang === 'nl' && (
+  <dialog id="spreekuur-popup" class="spk" aria-labelledby="spk-title" data-skip-on="/spreekuur/">
+    <form method="dialog" class="spk-close-form">
+      <button class="spk-close" aria-label="Sluiten">&times;</button>
+    </form>
+    <h2 id="spk-title">Wekelijks inloopspreekuur</h2>
+    <p>Elke vrijdagmiddag kun je zonder afspraak langskomen bij Lodewijk en Arjan. Het eerste half uur is gratis.</p>
+    <div class="spk-actions">
+      <a class="btn btn-gold" href="/spreekuur/">Meer over het Spreekuur</a>
+      <form method="dialog"><button class="spk-later">Misschien later</button></form>
+    </div>
+  </dialog>
+)}
+
+<style is:global>
+  .spk{border:0;padding:30px 30px 26px;border-radius:16px;max-width:440px;width:calc(100% - 32px);background:var(--card);color:var(--text);box-shadow:0 30px 70px -24px rgba(12,47,95,.45)}
+  .spk::backdrop{background:rgba(12,47,95,.45)}
+  .spk[open]{animation:spk-in .32s cubic-bezier(.22,1,.36,1)}
+  .spk[open]::backdrop{animation:spk-fade .32s ease-out}
+  .spk h2{margin:0 36px 10px 0;font-size:22px;color:var(--navy)}
+  .spk p{margin:0 0 20px;color:var(--muted);font-size:15px;line-height:1.55}
+  .spk-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .spk-actions form{margin:0}
+  .spk-later{background:none;border:0;padding:8px 2px;font:inherit;font-size:14px;font-weight:600;color:var(--navy-light);text-decoration:underline;cursor:pointer}
+  .spk-close-form{position:absolute;top:10px;right:10px;margin:0}
+  .spk-close{width:36px;height:36px;border:0;border-radius:50%;background:transparent;font-size:24px;line-height:1;color:var(--muted);cursor:pointer}
+  .spk-close:hover{background:var(--altbg)}
+  @keyframes spk-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes spk-fade{from{opacity:0}to{opacity:1}}
+  @media (prefers-reduced-motion:reduce){.spk[open],.spk[open]::backdrop{animation:none}}
+</style>
+
+<script>
+  (function () {
+    const dlg = document.getElementById('spreekuur-popup') as HTMLDialogElement | null;
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    const KEY = 'expataid-spreekuur-popup-seen';
+    const CONSENT_KEY = 'expataid-cookie-consent';
+    const safe = <T,>(fn: () => T, fallback: T): T => { try { return fn(); } catch { return fallback; } };
+
+    if (safe(() => sessionStorage.getItem(KEY), null)) return;
+    const skip = dlg.dataset.skipOn;
+    if (skip && location.pathname.endsWith(skip)) return;
+
+    let shown = false;
+    function show() {
+      if (shown) return;
+      shown = true;
+      setTimeout(() => {
+        dlg!.showModal();
+        safe(() => sessionStorage.setItem(KEY, '1'), null);
+      }, 1200);
+    }
+    // Backdrop-klik sluit het venster.
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+
+    if (safe(() => localStorage.getItem(CONSENT_KEY), null)) show();
+    else document.addEventListener('cookie-consent-changed', show, { once: true });
+  })();
+</script>

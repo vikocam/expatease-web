@@ -4,8 +4,9 @@ import { HomePage } from './pages/home.page';
 test.describe('Cookie consent banner', () => {
   test.beforeEach(async ({ page }) => {
     // Start with a clean slate — no prior consent stored.
+    await page.addInitScript(() => sessionStorage.setItem('expataid-spreekuur-popup-seen', '1'));
     await page.goto('/');
-    await page.evaluate(() => localStorage.removeItem('expatease-cookie-consent'));
+    await page.evaluate(() => localStorage.removeItem('expataid-cookie-consent'));
     await page.reload();
   });
 

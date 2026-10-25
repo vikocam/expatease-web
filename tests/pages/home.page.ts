@@ -11,8 +11,13 @@ export class HomePage {
     this.page = page;
     this.heading = page.getByRole('heading', { level: 1 });
     this.bookConsultationLink = page.getByRole('link', { name: 'Book a consultation' });
-    this.wizardHeading = page.getByRole('heading', { name: 'Vind je oplossing in 3 stappen' });
+    this.wizardHeading = page.getByRole('heading', { name: 'Vind je oplossing in 2 stappen' });
     this.cookieBanner = page.getByRole('dialog', { name: 'Cookiemelding' });
+  }
+
+  /** Keep the spreekuur pop-up out of the way for tests that don't cover it. */
+  async skipSpreekuurPopup() {
+    await this.page.addInitScript(() => sessionStorage.setItem('spreekuur-popup-seen', '1'));
   }
 
   async goto() {
@@ -28,10 +33,9 @@ export class HomePage {
     }
   }
 
-  /** Runs the 3-step triage wizard and returns the resulting WhatsApp link. */
-  async completeWizard(situation: string, region: string, urgency: string) {
+  /** Runs the 2-step triage wizard and returns the resulting WhatsApp link. */
+  async completeWizard(situation: string, urgency: string) {
     await this.page.getByRole('button', { name: situation }).click();
-    await this.page.getByRole('button', { name: region }).click();
     await this.page.getByRole('button', { name: urgency }).click();
   }
 

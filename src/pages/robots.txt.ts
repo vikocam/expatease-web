@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = ({ site }) => {
-  const origin = (site ?? new URL('https://expatease.nl')).origin;
+  const origin = (site ?? new URL('https://expataid.nl')).origin;
   const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
   const body = noindex

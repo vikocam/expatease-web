@@ -1,4 +1,4 @@
-# ExpatEase — proyecto Astro
+# ExpatAid — proyecto Astro
 
 ## Cómo correrlo
 npm install
@@ -17,7 +17,7 @@ npm run build       # genera /dist (sitio estático)
   - blog/index.astro y blog/[slug].astro → listado + artículos individuales
 
 ## Pendiente para producción
-1. **Dominio + hosting**: sin esto nada de lo de abajo funciona. Recomendado: comprar `expatease.nl` y desplegar en Vercel o Netlify (gratis para este tamaño de sitio, deploy automático desde GitHub).
+1. **Dominio + hosting**: sin esto nada de lo de abajo funciona. Recomendado: comprar `expataid.nl` y desplegar en Vercel o Netlify (gratis para este tamaño de sitio, deploy automático desde GitHub).
 2. **Google Analytics real**: en `src/components/Analytics.astro`, reemplazar `G-XXXXXXXXXX` por el Measurement ID real de tu propiedad GA4. Ya está conectado al banner de cookies — solo carga si el visitante acepta "Analytisch".
 3. **Google Search Console + Google Business Profile**: verificar el dominio en Search Console (usa el sitemap en `/sitemap-index.xml`) y crear/reclamar el perfil de empresa en Google — esto es lo que hace aparecer el negocio en Google Maps y en el panel lateral de búsquedas "advocaat Den Haag".
 4. **Traducción EN/ES/FR**: duplicar cada carpeta de pages/ bajo /en/, /es/, /fr/. El `Layout.astro` ya soporta `lang`, pero deliberadamente NO emite hreflang hacia esos idiomas todavía (para no señalar a Google páginas que aún no existen) — hay un comentario `TODO` marcando dónde reactivarlo.

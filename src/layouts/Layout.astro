@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import Analytics from '../components/Analytics.astro';
 import ScrollReveal from '../components/ScrollReveal.astro';
+import SpreekuurPopup from '../components/SpreekuurPopup.astro';
 import '../styles/global.css';
 import '../styles/site.css';
 
@@ -19,7 +20,7 @@ interface Props {
 }
 
 const { title, description, lang = 'nl', active = '', path = '/', bodyClass } = Astro.props;
-const site = (Astro.site?.origin ?? 'https://expatease.nl') + import.meta.env.BASE_URL.replace(/\/$/, '');
+const site = (Astro.site?.origin ?? 'https://expataid.nl') + import.meta.env.BASE_URL.replace(/\/$/, '');
 const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
 // Solo NL bestaat vandaag. Zodra /en/, /es/, /fr/ echt gebouwd zijn, hier toevoegen —
 // tot die tijd geeft een hreflang naar niet-bestaande pagina's een 404-signaal aan Google.
@@ -47,7 +48,7 @@ const hrefFor = (l: string) => (l === 'nl' ? `${site}${path}` : `${site}/${l}${p
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'LegalService',
-      name: 'ExpatEase',
+      name: 'ExpatAid',
       description: 'Juridisch adviesbureau voor expats in Regio Haaglanden: huurrecht, kooprecht en overheidszaken.',
       url: site,
       areaServed: ['Den Haag', 'Delft', 'Rijswijk', 'Wassenaar', 'Leidschendam-Voorburg'],
@@ -69,5 +70,6 @@ const hrefFor = (l: string) => (l === 'nl' ? `${site}${path}` : `${site}/${l}${p
     <CookieConsent lang={lang} />
     <Analytics />
     <ScrollReveal />
+    {active !== 'spreekuur' && <SpreekuurPopup lang={lang} />}
   </body>
 </html>

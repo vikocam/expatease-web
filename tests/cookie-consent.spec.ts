@@ -3,6 +3,7 @@ import { HomePage } from './pages/home.page';
 
 test.describe('Cookie consent banner', () => {
   test.beforeEach(async ({ page }) => {
+    await new HomePage(page).skipSpreekuurPopup();
     // Start with a clean slate — no prior consent stored.
     await page.goto('/');
     await page.evaluate(() => localStorage.removeItem('expatease-cookie-consent'));

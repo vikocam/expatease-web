@@ -7,3 +7,4 @@ request and applies each row automatically. Say `unlock <key>` to change one.
 | --- | --- | --- | --- |
 | 2026-10-07 | base | original home design (Fraunces, service cards, 01-04 list, copy) is the base; only add requested changes on top | all pages |
 | 2026-10-07 | em-dashes | never (use comma, period or hyphen) | all visible text |
+| 2026-10-25 | name | ExpatAid (not ExpatEase) in all visible text | all pages |

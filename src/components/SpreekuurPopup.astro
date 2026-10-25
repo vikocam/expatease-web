@@ -1,0 +1,79 @@
+---
+// Pop-up about the weekly walk-in hours. Opens once per visit (sessionStorage),
+// after the cookie choice is made, so the two never stack on first visit.
+interface Props { lang?: 'nl' | 'en' | 'es' | 'fr'; }
+const { lang = 'nl' } = Astro.props;
+const base = lang === 'nl' ? '' : `/${lang}`;
+---
+<dialog id="spreekuur-popup" class="sp-pop" aria-labelledby="sp-pop-title">
+  <form method="dialog" class="sp-close-form">
+    <button class="sp-close" value="close" aria-label="Sluiten">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
+    </button>
+  </form>
+  <p class="sp-kicker">Elke vrijdagmiddag</p>
+  <h2 id="sp-pop-title">Wekelijks inloopspreekuur</h2>
+  <p class="sp-text">Kom zonder afspraak langs met je vraag. Lodewijk en Arjan geven je in 15 minuten een eerste inschatting van je situatie en de vervolgstappen.</p>
+  <div class="sp-actions">
+    <a class="btn btn-gold" href={`${base}/spreekuur/`}>Meer over het spreekuur</a>
+    <form method="dialog"><button class="btn btn-outline sp-later" value="later">Later</button></form>
+  </div>
+</dialog>
+
+<style>
+  .sp-pop{
+    width:min(440px, calc(100vw - 32px));
+    border:none;border-radius:16px;padding:32px 30px 26px;
+    background:var(--card);color:var(--text);
+    box-shadow:0 30px 60px -24px rgba(12,47,95,.45);
+    border-top:4px solid var(--gold);
+  }
+  .sp-pop::backdrop{background:rgba(12,47,95,.38);backdrop-filter:blur(2px)}
+  .sp-close-form{position:absolute;top:12px;right:12px;margin:0}
+  .sp-close{
+    width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    background:transparent;color:var(--muted);transition:background-color .2s ease,color .2s ease;
+  }
+  .sp-close:hover{background:var(--altbg);color:var(--navy)}
+  .sp-close:focus-visible,.sp-pop .btn:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+  .sp-kicker{margin:0 0 6px;font-size:13px;font-weight:700;color:var(--gold-dark)}
+  .sp-pop h2{margin:0 0 10px;font-size:24px;color:var(--navy);line-height:1.2}
+  .sp-text{margin:0 0 22px;color:var(--muted);font-size:15px;line-height:1.55}
+  .sp-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .sp-actions form{margin:0}
+
+  @media (prefers-reduced-motion: no-preference){
+    .sp-pop[open]{animation:sp-in .5s cubic-bezier(.16,1,.3,1)}
+    .sp-pop[open]::backdrop{animation:sp-fade .4s ease}
+  }
+  @keyframes sp-in{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+  @keyframes sp-fade{from{opacity:0}to{opacity:1}}
+</style>
+
+<script>
+  (function () {
+    const dlg = document.getElementById('spreekuur-popup') as HTMLDialogElement | null;
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    const SEEN = 'spreekuur-popup-seen';
+    const seen = () => { try { return sessionStorage.getItem(SEEN) === '1'; } catch { return false; } };
+    const mark = () => { try { sessionStorage.setItem(SEEN, '1'); } catch {} };
+    if (seen()) return;
+
+    const open = () => {
+      if (seen() || dlg.open) return;
+      mark();
+      dlg.showModal();
+    };
+    // click on the dimmed backdrop closes it
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+
+    let consentDecided = false;
+    try { consentDecided = !!localStorage.getItem('expatease-cookie-consent'); } catch {}
+    if (consentDecided) {
+      setTimeout(open, 1200);
+    } else {
+      document.addEventListener('cookie-consent-changed', () => setTimeout(open, 700), { once: true });
+    }
+  })();
+</script>

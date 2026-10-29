@@ -9,7 +9,7 @@ test.describe('Spreekuur pop-up', () => {
     await expect(popup).toBeHidden();
     await home.acceptCookies();
     await expect(popup).toBeVisible();
-    await expect(popup.getByRole('link', { name: 'Meer over het spreekuur' })).toBeVisible();
+    await expect(popup.getByRole('link', { name: 'Meer over ExpaTable' })).toBeVisible();
     await popup.getByRole('button', { name: 'Later' }).click();
     await expect(popup).toBeHidden();
   });

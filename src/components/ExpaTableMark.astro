@@ -1,8 +1,9 @@
 ---
 // ExpaTable visual in the same language as the service cards:
-// a small gold line icon (Phosphor light, picnic table: a table on the square)
-// and a large faint watermark of it.
-import tableIcon from '@phosphor-icons/core/assets/light/picnic-table-light.svg?raw';
+// a small gold line icon and a large faint watermark of it. The icon (a round
+// terrace table for four under a parasol) is drawn in the Phosphor light style:
+// 256 grid, 12px stroke, round caps.
+import tableIcon from '../icons/round-table.svg?raw';
 interface Props { part: 'icon' | 'mark'; }
 const svg = tableIcon.replace('<svg ', '<svg aria-hidden="true" focusable="false" ');
 ---

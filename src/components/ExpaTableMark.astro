@@ -1,7 +1,8 @@
 ---
 // ExpaTable visual in the same language as the service cards:
-// a small gold line icon (Phosphor light) and a large faint watermark of it.
-import tableIcon from '@phosphor-icons/core/assets/light/users-three-light.svg?raw';
+// a small gold line icon (Phosphor light, picnic table: a table on the square)
+// and a large faint watermark of it.
+import tableIcon from '@phosphor-icons/core/assets/light/picnic-table-light.svg?raw';
 interface Props { part: 'icon' | 'mark'; }
 const svg = tableIcon.replace('<svg ', '<svg aria-hidden="true" focusable="false" ');
 ---
@@ -10,7 +11,7 @@ const svg = tableIcon.replace('<svg ', '<svg aria-hidden="true" focusable="false
   : <span class="xt-mark" set:html={svg} />}
 
 <style>
-  .xt-icon{display:block;width:48px;height:48px;color:var(--gold);margin-bottom:18px}
+  .xt-icon{display:block;width:60px;height:60px;color:var(--gold);margin:-6px 0 10px}
   .xt-mark{
     position:absolute;right:clamp(220px,25vw,360px);top:50%;width:min(380px,40vw);aspect-ratio:1;
     transform:translateY(-50%);color:#ffffff;opacity:.05;pointer-events:none;

@@ -1,11 +1,8 @@
 ---
 import ExpaTableMark from './ExpaTableMark.astro';
-import calendarIcon from '@phosphor-icons/core/assets/light/calendar-dots-light.svg?raw';
-import chatIcon from '@phosphor-icons/core/assets/light/chats-circle-light.svg?raw';
 interface Props { lang?: 'nl' | 'en' | 'es' | 'fr'; }
 const { lang = 'nl' } = Astro.props;
 const base = lang === 'nl' ? '' : `/${lang}`;
-const icon = (svg: string) => svg.replace('<svg ', '<svg aria-hidden="true" focusable="false" ');
 ---
 <section class="xt-band" id="spreekuur" aria-labelledby="xt-band-title">
   <ExpaTableMark part="mark" />
@@ -16,10 +13,6 @@ const icon = (svg: string) => svg.replace('<svg ', '<svg aria-hidden="true" focu
       <h2 id="xt-band-title">ExpaTable</h2>
     </div>
     <div class="xt-band-side reveal" style="transition-delay:.12s">
-      <ul class="xt-facts">
-        <li><span set:html={icon(calendarIcon)} />Elke vrijdagmiddag</li>
-        <li><span set:html={icon(chatIcon)} />Reactie binnen 24 uur</li>
-      </ul>
       <a class="btn btn-gold" href={`${base}/spreekuur/`}>Meer over ExpaTable</a>
     </div>
   </div>
@@ -30,7 +23,7 @@ const icon = (svg: string) => svg.replace('<svg ', '<svg aria-hidden="true" focu
     position:relative;overflow:hidden;color:#f7f8fa;padding:64px 0;
     background:linear-gradient(140deg,var(--navy) 0%,var(--navy-light) 100%);
   }
-  .xt-band-grid{position:relative;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end}
+  .xt-band-grid{position:relative;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
   @media (max-width:767px){
     .xt-band{padding:52px 0}
     .xt-band-grid{grid-template-columns:1fr;gap:28px;align-items:start}
@@ -39,8 +32,4 @@ const icon = (svg: string) => svg.replace('<svg ', '<svg aria-hidden="true" focu
   .xt-band h2{margin:0;color:#f7f8fa;font-size:clamp(36px,4.6vw,54px);line-height:1;letter-spacing:-.02em}
 
   .xt-band-side{display:flex;flex-direction:column;gap:22px;align-items:flex-start}
-  .xt-facts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
-  .xt-facts li{display:flex;align-items:center;gap:12px;font-size:17px;color:#f7f8fa}
-  .xt-facts span{flex:none;width:28px;height:28px;color:var(--gold)}
-  .xt-facts span :global(svg){width:100%;height:100%;display:block}
 </style>

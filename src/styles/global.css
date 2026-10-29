@@ -94,8 +94,6 @@ section.block{padding:76px 0}
 .card .tag{font-size:11px;font-weight:700;color:var(--gold-dark);text-transform:uppercase;letter-spacing:.06em}
 .card h3{font-size:17px;margin:8px 0}
 .card p{color:var(--muted);font-size:13.5px;margin:0 0 12px}
-.testi{border-top:1px solid var(--border);padding-top:12px;font-size:12.5px;color:var(--muted);font-style:italic}
-.testi .stars{color:#F5B301;font-style:normal;letter-spacing:1px;display:block;margin-bottom:4px}
 .readmore{display:block;margin-top:12px;font-size:13px;font-weight:600;color:var(--navy-light)}
 .blogmeta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:10px;margin-top:10px}
 

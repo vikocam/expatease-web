@@ -124,7 +124,6 @@ body .why-row p{color:var(--muted)}
 body .directcard small{color:#13753a}   /* WhatsApp green text: 2:1 -> 5.8:1 */
 body .mfloat .wa,
 body #waResult{color:#0a2e17 !important} /* dark text on WhatsApp green */
-body .testi{color:var(--muted)}
 
 /* ---------- Services: line icon + quiet watermark instead of emoji ---------- */
 body .svc-top{

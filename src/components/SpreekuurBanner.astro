@@ -1,11 +1,41 @@
 ---
+import ExpaTableCard from './ExpaTableCard.astro';
 interface Props { lang?: 'nl' | 'en' | 'es' | 'fr'; }
 const { lang = 'nl' } = Astro.props;
 const base = lang === 'nl' ? '' : `/${lang}`;
 ---
-<section class="urgency" id="spreekuur">
-  <div class="wrap urow reveal">
-    <div><h3>ExpaTable</h3><p>Wekelijks inloopspreekuur, elke vrijdagmiddag. Reactie binnen 24 uur.</p></div>
-    <a class="btn btn-gold" href={`${base}/spreekuur/`}>Meer over Spreekuur</a>
+<section class="xt-band" id="spreekuur" aria-labelledby="xt-band-title">
+  <div class="wrap xt-band-grid">
+    <div class="xt-band-text reveal">
+      <p class="xt-kicker">Wekelijks inloopspreekuur</p>
+      <h2 id="xt-band-title">ExpaTable</h2>
+      <p class="xt-lead">Elke vrijdagmiddag. Reactie binnen 24 uur.</p>
+      <a class="btn btn-gold" href={`${base}/spreekuur/`}>Meer over ExpaTable</a>
+    </div>
+    <div class="reveal" style="transition-delay:.12s">
+      <ExpaTableCard when="middag" />
+    </div>
   </div>
 </section>
+
+<style>
+  .xt-band{
+    position:relative;overflow:hidden;
+    background:var(--navy);color:#f7f8fa;padding:72px 0;
+  }
+  .xt-band::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(60% 90% at 85% 50%, rgba(223,160,44,.16), transparent 70%);
+  }
+  .xt-band-grid{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  @media (max-width:767px){
+    .xt-band{padding:56px 0}
+    .xt-band-grid{grid-template-columns:1fr;gap:36px}
+  }
+  .xt-kicker{margin:0 0 10px;color:var(--gold);font-weight:700;font-size:14px}
+  .xt-band h2{
+    margin:0 0 14px;color:#f7f8fa;
+    font-size:clamp(40px,5.4vw,64px);line-height:1;letter-spacing:-.025em;
+  }
+  .xt-lead{margin:0 0 26px;max-width:40ch;color:#d6dfeb;font-size:18px;line-height:1.5}
+</style>

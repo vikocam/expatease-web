@@ -1,5 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import ExpaTableCard from '../../components/ExpaTableCard.astro';
+import calendarIcon from '@phosphor-icons/core/assets/light/calendar-dots-light.svg?raw';
+import doorIcon from '@phosphor-icons/core/assets/light/door-open-light.svg?raw';
+import timerIcon from '@phosphor-icons/core/assets/light/timer-light.svg?raw';
+import chatIcon from '@phosphor-icons/core/assets/light/chats-circle-light.svg?raw';
+const icon = (svg: string) => svg.replace('<svg ', '<svg aria-hidden="true" focusable="false" ');
 ---
 <Layout
   title="ExpaTable | Wekelijks inloopspreekuur | ExpatAid"
@@ -8,22 +14,26 @@ import Layout from '../../layouts/Layout.astro';
   active="spreekuur"
   path="/spreekuur/"
 >
-  <section class="pagehero">
-    <div class="wrap">
-      <div class="breadcrumb"><a href="/">Home</a> / Spreekuur</div>
-      <h1>ExpaTable</h1>
-      <p class="sub">Laagdrempelige intake en kennismaking, zonder afspraak vooraf.</p>
+  <section class="xt-hero">
+    <div class="wrap xt-hero-grid">
+      <div class="xt-hero-text">
+        <div class="breadcrumb xt-crumb"><a href="/">Home</a> / Spreekuur</div>
+        <p class="xt-kicker">Wekelijks inloopspreekuur</p>
+        <h1>ExpaTable</h1>
+        <p class="xt-sub">Laagdrempelige intake en kennismaking, zonder afspraak vooraf.</p>
+      </div>
+      <ExpaTableCard when="14:00-16:00" where="Het Plein, Den Haag" />
     </div>
   </section>
 
   <section class="block">
-    <div class="wrap prose">
+    <div class="wrap xt-how">
       <h2>Hoe het werkt</h2>
-      <ul>
-        <li>Elke vrijdagmiddag van 14:00 tot 16:00 op het Plein houden Lodewijk en Arjan een vast inloopspreekuur.</li>
-        <li>Je hoeft vooraf geen afspraak te maken. Kom gewoon langs met je vraag.</li>
-        <li>In maximaal 30 minuten krijg je een eerste inschatting van je situatie en de vervolgstappen.</li>
-        <li>Heb je liever direct contact? Gebruik het <a href="/contact/">contactformulier</a> of stuur ons een WhatsApp-bericht.</li>
+      <ul class="xt-steps reveal-stagger">
+        <li><span class="xt-ico" set:html={icon(calendarIcon)} /><p>Elke vrijdagmiddag van 14:00 tot 16:00 op het Plein houden Lodewijk en Arjan een vast inloopspreekuur.</p></li>
+        <li><span class="xt-ico" set:html={icon(doorIcon)} /><p>Je hoeft vooraf geen afspraak te maken. Kom gewoon langs met je vraag.</p></li>
+        <li><span class="xt-ico" set:html={icon(timerIcon)} /><p>In maximaal 30 minuten krijg je een eerste inschatting van je situatie en de vervolgstappen.</p></li>
+        <li><span class="xt-ico" set:html={icon(chatIcon)} /><p>Heb je liever direct contact? Gebruik het <a href="/contact/">contactformulier</a> of stuur ons een WhatsApp-bericht.</p></li>
       </ul>
     </div>
   </section>
@@ -34,3 +44,28 @@ import Layout from '../../layouts/Layout.astro';
     </div>
   </section>
 </Layout>
+
+<style>
+  .xt-hero{position:relative;overflow:hidden;background:var(--navy);color:#f7f8fa;padding:48px 0 56px}
+  .xt-hero::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(55% 90% at 82% 45%, rgba(223,160,44,.16), transparent 70%);
+  }
+  .xt-hero-grid{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+  @media (max-width:767px){.xt-hero-grid{grid-template-columns:1fr;gap:28px}}
+  .xt-crumb{color:#aebbd0}
+  .xt-crumb a:hover{color:#f7f8fa}
+  .xt-kicker{margin:18px 0 8px;color:var(--gold);font-weight:700;font-size:14px}
+  .xt-hero h1{margin:0 0 14px;color:#f7f8fa;font-size:clamp(44px,6vw,72px);line-height:1;letter-spacing:-.025em}
+  .xt-sub{margin:0;max-width:40ch;color:#d6dfeb;font-size:18px;line-height:1.5}
+
+  .xt-how{max-width:880px}
+  .xt-how h2{margin:0 0 24px;color:var(--navy);font-size:28px}
+  .xt-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media (max-width:767px){.xt-steps{grid-template-columns:1fr}}
+  .xt-steps li{display:flex;gap:14px;align-items:flex-start;padding:20px;border-radius:14px;background:var(--card);border:1px solid var(--border)}
+  .xt-steps p{margin:0;font-size:15.5px;line-height:1.55;color:var(--text)}
+  .xt-steps a{color:var(--navy);text-decoration:underline;text-underline-offset:3px}
+  .xt-ico{flex:none;width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:var(--navy);color:var(--gold)}
+  .xt-ico :global(svg){width:24px;height:24px}
+</style>

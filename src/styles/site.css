@@ -166,3 +166,8 @@ body .svc-mark svg{width:100%;height:100%;display:block}
   .pagehero .wrap > :nth-child(3){animation-delay:.12s}
   .pagehero .wrap > :nth-child(4){animation-delay:.18s}
 }
+
+/* Footer with three columns while opening hours are hidden */
+.footgrid.footgrid-3{grid-template-columns:1.6fr 1fr 1fr}
+@media (max-width:880px){.footgrid.footgrid-3{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.footgrid.footgrid-3{grid-template-columns:1fr}}

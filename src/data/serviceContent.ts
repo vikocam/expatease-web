@@ -17,7 +17,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       'Hulp bij huurgeschillen in Den Haag en Haaglanden: borg terugvorderen, onderhoudsklachten, servicekosten en VvE-zaken. Advies in het Nederlands, met vertaling in het Engels, Frans en Spaans.',
     h1: 'Huurrecht & Wonen voor Expats in The Hague',
     intro:
-      'Als expat in Nederland loop je sneller tegen onduidelijke huurcontracten of een lastige verhuurder aan, vaak zonder te weten wat je rechten zijn. ExpatAid helpt je helder en snel, in jouw eigen taal.',
+      'Als expat in Nederland loop je sneller tegen onduidelijke huurcontracten of een lastige verhuurder aan, vaak zonder te weten wat je rechten zijn. ExpatAid helpt je helder en snel, met de mogelijkheid om te vertalen in het Engels, Frans of Spaans.',
     covers: [
       'Controle en advies bij huurovereenkomsten voor woonruimte',
       'Geschillen tussen huurder en verhuurder (borg, onderhoud, servicekosten)',
@@ -25,7 +25,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       'Burenrecht en overlastkwesties',
     ],
     process: [
-      'Korte intake (via het triage-formulier of Spreekuur op vrijdag)',
+      'Korte intake (via het contactformulier of het spreekuur op vrijdag)',
       'Beoordeling van je huurcontract en de feiten van je situatie',
       'Duidelijk advies over je positie en de te volgen stappen',
       'Indien nodig: formele correspondentie of bemiddeling met de verhuurder',
@@ -77,7 +77,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       'Nederlandse bureaucratie is voor iedereen ondoorzichtig, voor expats des te meer. Van vergunningsaanvragen tot bezwaarprocedures: wij zorgen dat je de juiste stappen op tijd zet.',
     covers: [
       'Advies en bijstand bij vergunningen',
-      'Bezwaarprocedures bij gemeenten en instanties',
+      'Geschillen met de overheid',
       'Administratieve procedures en correspondentie met overheidsinstanties',
     ],
     process: [

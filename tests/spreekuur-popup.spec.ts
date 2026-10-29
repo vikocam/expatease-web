@@ -5,7 +5,7 @@ test.describe('Spreekuur pop-up', () => {
   test('opens after the cookie choice and can be closed', async ({ page }) => {
     const home = new HomePage(page);
     await home.goto();
-    const popup = page.getByRole('dialog', { name: 'Wekelijks inloopspreekuur' });
+    const popup = page.getByRole('dialog', { name: 'ExpaTable' });
     await expect(popup).toBeHidden();
     await home.acceptCookies();
     await expect(popup).toBeVisible();
@@ -18,7 +18,7 @@ test.describe('Spreekuur pop-up', () => {
     const home = new HomePage(page);
     await home.goto();
     await home.acceptCookies();
-    const popup = page.getByRole('dialog', { name: 'Wekelijks inloopspreekuur' });
+    const popup = page.getByRole('dialog', { name: 'ExpaTable' });
     await expect(popup).toBeVisible();
     await page.keyboard.press('Escape');
     await expect(popup).toBeHidden();

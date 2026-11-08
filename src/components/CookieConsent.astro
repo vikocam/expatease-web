@@ -4,73 +4,13 @@
 // - analytische/marketing cookies staan pas aan ná expliciete toestemming
 // - de keuze wordt onthouden in localStorage, zodat de banner niet steeds terugkomt
 
-interface Props { lang?: 'nl' | 'en' | 'es' | 'fr'; }
+import { ui } from '../i18n/ui';
+import { href, type Lang } from '../i18n';
+interface Props { lang?: Lang; }
 const { lang = 'nl' } = Astro.props;
-
-const t = {
-  nl: {
-    message: 'Wij gebruiken cookies om de website goed te laten werken en, met jouw toestemming, om bezoekersstatistieken te verzamelen. Lees ons',
-    linkText: 'cookiebeleid',
-    settings: 'Instellingen',
-    reject: 'Alleen noodzakelijk',
-    accept: 'Alles accepteren',
-    necessary: 'Noodzakelijk',
-    necessaryDesc: 'vereist voor het functioneren van de website. Kan niet worden uitgeschakeld.',
-    analytics: 'Analytisch',
-    analyticsDesc: 'helpt ons te begrijpen hoe bezoekers de site gebruiken (bijv. Google Analytics, geanonimiseerd).',
-    marketing: 'Marketing',
-    marketingDesc: 'wordt gebruikt om relevante advertenties te tonen op andere sites.',
-    save: 'Voorkeuren opslaan',
-    cookiesHref: '/cookies/',
-  },
-  en: {
-    message: 'We use cookies to make the website work properly and, with your consent, to collect visitor statistics. Read our',
-    linkText: 'cookie policy',
-    settings: 'Settings',
-    reject: 'Necessary only',
-    accept: 'Accept all',
-    necessary: 'Necessary',
-    necessaryDesc: 'required for the website to function. Cannot be disabled.',
-    analytics: 'Analytics',
-    analyticsDesc: 'helps us understand how visitors use the site (e.g. Google Analytics, anonymised).',
-    marketing: 'Marketing',
-    marketingDesc: 'used to show relevant advertising on other sites.',
-    save: 'Save preferences',
-    cookiesHref: '/en/cookies/',
-  },
-  es: {
-    message: 'Usamos cookies para que el sitio funcione correctamente y, con tu consentimiento, para recopilar estadísticas de visitantes. Consulta nuestra',
-    linkText: 'política de cookies',
-    settings: 'Configuración',
-    reject: 'Solo necesarias',
-    accept: 'Aceptar todo',
-    necessary: 'Necesarias',
-    necessaryDesc: 'imprescindibles para el funcionamiento del sitio. No se pueden desactivar.',
-    analytics: 'Analíticas',
-    analyticsDesc: 'nos ayudan a entender cómo se usa el sitio (p. ej. Google Analytics, de forma anónima).',
-    marketing: 'Marketing',
-    marketingDesc: 'se usan para mostrar anuncios relevantes en otros sitios.',
-    save: 'Guardar preferencias',
-    cookiesHref: '/es/cookies/',
-  },
-  fr: {
-    message: "Nous utilisons des cookies pour que le site fonctionne correctement et, avec votre consentement, pour recueillir des statistiques de visite. Consultez notre",
-    linkText: 'politique de cookies',
-    settings: 'Paramètres',
-    reject: 'Nécessaires uniquement',
-    accept: 'Tout accepter',
-    necessary: 'Nécessaires',
-    necessaryDesc: 'indispensables au fonctionnement du site. Ne peuvent pas être désactivés.',
-    analytics: 'Analytiques',
-    analyticsDesc: "nous aident à comprendre comment le site est utilisé (ex. Google Analytics, données anonymisées).",
-    marketing: 'Marketing',
-    marketingDesc: "utilisés pour afficher des publicités pertinentes sur d'autres sites.",
-    save: 'Enregistrer les préférences',
-    cookiesHref: '/fr/cookies/',
-  },
-}[lang];
+const t = { ...ui[lang].cookie, cookiesHref: href(lang, '/cookies/') };
 ---
-<div id="cookie-banner" class="cookiebar" role="dialog" aria-live="polite" aria-label="Cookiemelding" style="display:none">
+<div id="cookie-banner" class="cookiebar" role="dialog" aria-live="polite" aria-label={t.aria} style="display:none">
   <div class="cookiebar-inner">
     <p>
       {t.message} <a href={t.cookiesHref}>{t.linkText}</a>.

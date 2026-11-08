@@ -1,19 +1,22 @@
 ---
 import ExpaTableMark from './ExpaTableMark.astro';
-interface Props { lang?: 'nl' | 'en' | 'es' | 'fr'; }
+import { ui } from '../i18n/ui';
+import { prefix, type Lang } from '../i18n';
+interface Props { lang?: Lang; }
 const { lang = 'nl' } = Astro.props;
-const base = lang === 'nl' ? '' : `/${lang}`;
+const base = prefix(lang);
+const t = ui[lang].band;
 ---
 <section class="xt-band" id="spreekuur" aria-labelledby="xt-band-title">
   <ExpaTableMark part="mark" />
   <div class="wrap xt-band-grid">
     <div class="xt-band-text reveal">
       <ExpaTableMark part="icon" />
-      <p class="xt-kicker">Wekelijks inloopspreekuur</p>
+      <p class="xt-kicker">{t.kicker}</p>
       <h2 id="xt-band-title">ExpaTable</h2>
     </div>
     <div class="xt-band-side reveal" style="transition-delay:.12s">
-      <a class="btn btn-gold" href={`${base}/spreekuur/`}>Meer over ExpaTable</a>
+      <a class="btn btn-gold" href={`${base}/spreekuur/`}>{t.more}</a>
     </div>
   </div>
 </section>

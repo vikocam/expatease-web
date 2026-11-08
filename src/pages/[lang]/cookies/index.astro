@@ -1,0 +1,7 @@
+---
+import LegalView from '../../../views/LegalView.astro';
+import { langPaths, type Lang } from '../../../i18n';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+---
+<LegalView lang={lang} doc="cookies" />

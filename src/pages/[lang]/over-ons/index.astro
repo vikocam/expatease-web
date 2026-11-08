@@ -1,0 +1,7 @@
+---
+import OverOnsView from '../../../views/OverOnsView.astro';
+import { langPaths, type Lang } from '../../../i18n';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+---
+<OverOnsView lang={lang} />

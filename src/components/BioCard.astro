@@ -1,4 +1,6 @@
 ---
+import { ui } from '../i18n/ui';
+import type { Lang } from '../i18n';
 interface Props {
   name: string;
   initials: string;
@@ -9,21 +11,23 @@ interface Props {
   photoSrc?: string; // p.ej. "/images/team/lodewijk.jpg" — cuando la foto real esté lista
   reverse?: boolean;
   whatsappNumber?: string;
+  lang?: Lang;
 }
-const { name, initials, role, quote, bio, tags, photoSrc, reverse = false, whatsappNumber = '31600000000' } = Astro.props;
+const { name, initials, role, quote, bio, tags, photoSrc, reverse = false, whatsappNumber = '31600000000', lang = 'nl' } = Astro.props;
+const t = ui[lang].bio;
 ---
 <div class={`biorow reveal ${reverse ? 'reverse' : ''}`}>
   <div class="biophoto">
     {photoSrc ? (
-      <img src={photoSrc} alt={`Foto van ${name}, ${role} bij ExpatAid`} loading="lazy" />
+      <img src={photoSrc} alt={t.photoAlt(name, role)} loading="lazy" />
     ) : (
-      <div class="biophoto-placeholder" role="img" aria-label={`Foto van ${name} volgt binnenkort`}>
+      <div class="biophoto-placeholder" role="img" aria-label={t.photoSoonAria(name)}>
         <svg viewBox="0 0 200 240" class="silhouette" aria-hidden="true">
           <circle cx="100" cy="88" r="46" fill="rgba(255,255,255,.14)"/>
           <path d="M20 240c0-58 36-96 80-96s80 38 80 96" fill="rgba(255,255,255,.14)"/>
         </svg>
         <span>{initials}</span>
-        <small>Foto volgt binnenkort</small>
+        <small>{t.photoSoon}</small>
       </div>
     )}
   </div>
@@ -36,7 +40,7 @@ const { name, initials, role, quote, bio, tags, photoSrc, reverse = false, whats
       {tags.map((t) => <span class="biotag">{t}</span>)}
     </div>
     <a class="linkarrow" href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener">
-      Stuur een WhatsApp-bericht &rarr;
+      {t.whatsapp} &rarr;
     </a>
   </div>
 </div>

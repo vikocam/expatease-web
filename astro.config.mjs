@@ -11,6 +11,6 @@ export default defineConfig({
   site,
   base,
   integrations: [sitemap(), prefixBase(base)],
-  // TODO: cuando /en/, /es/, /fr/ tengan páginas reales, añadirlas aquí y
-  // volver a habilitar el routing i18n multilenguaje.
+  // Languages: NL at the root, EN/ES/FR under /en/, /es/, /fr/ with the same paths.
+  // Routes live in src/pages/[lang]/, texts in src/i18n/.
 });

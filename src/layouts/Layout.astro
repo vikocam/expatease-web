@@ -5,13 +5,15 @@ import CookieConsent from '../components/CookieConsent.astro';
 import Analytics from '../components/Analytics.astro';
 import ScrollReveal from '../components/ScrollReveal.astro';
 import SpreekuurPopup from '../components/SpreekuurPopup.astro';
+import { ui } from '../i18n/ui';
+import { langs, type Lang } from '../i18n';
 import '../styles/global.css';
 import '../styles/site.css';
 
 interface Props {
   title: string;
   description: string;
-  lang?: 'nl' | 'en' | 'es' | 'fr';
+  lang?: Lang;
   active?: 'diensten' | 'over-ons' | 'spreekuur' | 'blog' | 'contact' | '';
   /** relative path without locale prefix, e.g. "/diensten/huurrecht/" — used to build hreflang alternates */
   path?: string;
@@ -22,9 +24,8 @@ interface Props {
 const { title, description, lang = 'nl', active = '', path = '/', bodyClass } = Astro.props;
 const site = (Astro.site?.origin ?? 'https://expataid.nl') + import.meta.env.BASE_URL.replace(/\/$/, '');
 const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
-// Solo NL bestaat vandaag. Zodra /en/, /es/, /fr/ echt gebouwd zijn, hier toevoegen —
-// tot die tijd geeft een hreflang naar niet-bestaande pagina's een 404-signaal aan Google.
-const liveLocales = ['nl'] as const;
+// Every page exists in all four languages (same path, language prefix), so all are listed as alternates.
+const liveLocales = langs;
 const hrefFor = (l: string) => (l === 'nl' ? `${site}${path}` : `${site}/${l}${path}`);
 ---
 <!doctype html>
@@ -49,7 +50,7 @@ const hrefFor = (l: string) => (l === 'nl' ? `${site}${path}` : `${site}/${l}${p
       '@context': 'https://schema.org',
       '@type': 'LegalService',
       name: 'ExpatAid',
-      description: 'Juridisch adviesbureau voor expats in Regio Haaglanden: huurrecht, kooprecht en overheidszaken.',
+      description: ui[lang].ldDescription,
       url: site,
       areaServed: ['Den Haag', 'Delft', 'Rijswijk', 'Wassenaar', 'Leidschendam-Voorburg'],
       address: {
@@ -62,7 +63,7 @@ const hrefFor = (l: string) => (l === 'nl' ? `${site}${path}` : `${site}/${l}${p
     })}></script>
   </head>
   <body class={bodyClass}>
-    <Header lang={lang} active={active} />
+    <Header lang={lang} active={active} path={path} />
     <main>
       <slot />
     </main>

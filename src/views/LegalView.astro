@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { legalTexts, legalNote, type LegalDoc } from '../i18n/legal';
+import { ui } from '../i18n/ui';
+import { homeHref, withBase, type Lang } from '../i18n';
+interface Props { lang: Lang; doc: LegalDoc; }
+const { lang, doc } = Astro.props;
+const t = ui[lang];
+const p = legalTexts[lang][doc];
+const path = `/${doc}/`;
+const note = lang === 'nl' ? '' : legalNote[lang].replace('{nl}', path);
+---
+<Layout title={p.title} description={p.description} lang={lang} path={path}>
+  <section class="pagehero">
+    <div class="wrap">
+      <div class="breadcrumb"><a href={homeHref(lang)}>{t.home}</a> / {p.crumb}</div>
+      <h1>{p.h1}</h1>
+      <p class="sub">{p.updated}</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap prose">
+      {note && <p class="legal-note" set:html={note} />}
+      <Fragment set:html={withBase(lang, p.html)} />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal-note{padding:14px 16px;border-left:3px solid var(--gold);background:var(--altbg);font-size:14px;color:var(--text)}
+  .legal-note :global(a){color:var(--navy);text-decoration:underline;text-underline-offset:3px}
+</style>

@@ -1,45 +1,46 @@
 ---
-interface Props { title?: string; asTeaser?: boolean; }
-const { title = 'Neem contact op', asTeaser = false } = Astro.props;
+import { ui } from '../i18n/ui';
+import type { Lang } from '../i18n';
+interface Props { title?: string; asTeaser?: boolean; lang?: Lang; }
+const { lang = 'nl', asTeaser = false } = Astro.props;
+const t = ui[lang].contact;
+const title = Astro.props.title ?? t.title;
 ---
 <section class={asTeaser ? 'block alt' : 'block'} id="contact-teaser">
   <div class="wrap">
     <div class="sechead reveal">
       <div>
         <h2>{title}</h2>
-        <p class="contact-trust">Het eerste half uur is gratis. Lodewijk of Arjan leest je bericht zelf en reageert persoonlijk. Geen callcenter, geen bot.</p>
+        <p class="contact-trust">{t.trust}</p>
       </div>
     </div>
     <div class="contactgrid reveal-stagger">
       <form id="contact-form">
-        <div class="field"><label>Naam</label><input required placeholder="Volledige naam" name="name" /></div>
-        <div class="field"><label>E-mail</label><input required type="email" placeholder="naam@voorbeeld.com" name="email" /></div>
+        <div class="field"><label>{t.name}</label><input required placeholder={t.namePh} name="name" /></div>
+        <div class="field"><label>{t.email}</label><input required type="email" placeholder={t.emailPh} name="email" /></div>
         <div class="field">
-          <label>Onderwerp</label>
+          <label>{t.subject}</label>
           <select name="subject">
-            <option>Huurrecht & Wonen</option>
-            <option>Kooprecht & Consumentenrecht</option>
-            <option>Overheid & Administratie</option>
-            <option>Anders</option>
+            {t.subjects.map((o) => <option>{o}</option>)}
           </select>
         </div>
-        <div class="field"><label>Bericht</label><textarea rows="4" placeholder="Beschrijf kort je situatie" name="message"></textarea></div>
-        <button class="btn btn-gold" type="submit">Verstuur bericht</button>
-        <p class="sent" style="display:none;color:var(--gold-dark);font-size:13px;margin-top:10px">Bedankt, we nemen zo snel mogelijk contact op.</p>
-        <p class="form-security">Je gegevens blijven tussen ons · Persoonlijk antwoord binnen 24 werkuren</p>
+        <div class="field"><label>{t.message}</label><textarea rows="4" placeholder={t.messagePh} name="message"></textarea></div>
+        <button class="btn btn-gold" type="submit">{t.send}</button>
+        <p class="sent" style="display:none;color:var(--gold-dark);font-size:13px;margin-top:10px">{t.sent}</p>
+        <p class="form-security">{t.security}</p>
       </form>
 
       <div class="contact-side">
         <div class="infobox">
-          <h4>ExpatAid, Juridisch Adviesbureau</h4>
-          <p>KVK-nummer: 84283866 · BTW-nummer: NL003941609B44</p>
+          <h4>{t.company}</h4>
+          <p>{t.ids}</p>
         </div>
 
         <div class="directcontacts">
-          <p class="directcontacts-label">Liever meteen iemand spreken?</p>
+          <p class="directcontacts-label">{t.directLabel}</p>
           <a class="directcard" href="https://wa.me/31600000000" target="_blank" rel="noopener">
             <span class="avatar-sm avatar-pair">LN<br/>AN</span>
-            <span><strong>Lodewijk &amp; Arjan</strong><small>Eén gedeeld WhatsApp-nummer, direct antwoord</small></span>
+            <span><strong>Lodewijk &amp; Arjan</strong><small>{t.waSmall}</small></span>
           </a>
         </div>
       </div>

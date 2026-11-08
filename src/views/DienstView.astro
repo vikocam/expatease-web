@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { serviceTexts, type ServiceSlug } from '../i18n/services';
+import { ui } from '../i18n/ui';
+import { href, homeHref, type Lang } from '../i18n';
+interface Props { lang: Lang; slug: ServiceSlug; }
+const { lang, slug } = Astro.props;
+const t = ui[lang];
+const p = t.pages.dienst;
+const content = serviceTexts[lang][slug];
+---
+<Layout
+  title={content.metaTitle}
+  description={content.metaDescription}
+  lang={lang}
+  active="diensten"
+  path={`/diensten/${slug}/`}
+>
+  <section class="pagehero">
+    <div class="wrap">
+      <div class="breadcrumb"><a href={homeHref(lang)}>{t.home}</a> / <a href={href(lang, '/diensten/')}>{t.pages.diensten.crumb}</a> / {content.title}</div>
+      <h1>{content.h1}</h1>
+      <p class="sub">{content.intro}</p>
+      <div class="herobtns">
+        <a class="btn btn-gold" href={href(lang, '/contact/')}>{p.book}</a>
+        <a class="btn btn-outline" href="https://wa.me/31600000000" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap prose">
+      <h2>{p.coversTitle}</h2>
+      <ul>
+        {content.covers.map((c) => <li>{c}</li>)}
+      </ul>
+
+      <h2>{p.processTitle}</h2>
+      <ul>
+        {content.process.map((s, i) => <li><strong>{i + 1}.</strong> {s}</li>)}
+      </ul>
+
+      <h2>{p.faqTitle}</h2>
+      <div class="faq">
+        {content.faq.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap" style="text-align:center">
+      <h2>{p.ctaTitle}</h2>
+      <p class="sub" style="margin:0 auto 22px">{p.ctaSub}</p>
+      <div class="herobtns" style="justify-content:center">
+        <a class="btn btn-gold" href={href(lang, '/contact/')}>{p.ctaBook}</a>
+        <a class="btn btn-wa" href="https://wa.me/31600000000" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  name: 'ExpatAid',
+  areaServed: 'Haaglanden, Netherlands',
+  serviceType: content.h1,
+  description: content.metaDescription,
+})}></script>
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: content.faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+})}></script>

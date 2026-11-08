@@ -1,12 +1,10 @@
 ---
-interface Props {
-  title: string;
-  subtitle: string;
-  ctaPrimary: string;
-  ctaSecondary: string;
-  ctaSecondaryHref: string;
-}
-const { title, subtitle, ctaPrimary, ctaSecondary, ctaSecondaryHref } = Astro.props;
+import { ui } from '../i18n/ui';
+import { href, type Lang } from '../i18n';
+interface Props { lang?: Lang; }
+const { lang = 'nl' } = Astro.props;
+const { title, subtitle, ctaPrimary, ctaSecondary, caption } = ui[lang].hero;
+const ctaSecondaryHref = href(lang, '/diensten/');
 ---
 <section class="hero">
   <div class="wrap herogrid">
@@ -23,7 +21,7 @@ const { title, subtitle, ctaPrimary, ctaSecondary, ctaSecondaryHref } = Astro.pr
     <div class="heroart reveal" style="transition-delay:.15s">
       <div class="heroart-cap">
         <p class="heroart-names">Lodewijk Nortier &amp; Arjan Nouwen</p>
-        <p>Juristen in Den Haag</p>
+        <p>{caption}</p>
       </div>
     </div>
   </div>

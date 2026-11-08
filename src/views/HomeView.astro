@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TriageWizard from '../components/TriageWizard.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import ServicesTeaser from '../components/ServicesTeaser.astro';
+import TeamTeaser from '../components/TeamTeaser.astro';
+import SpreekuurBanner from '../components/SpreekuurBanner.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import { ui } from '../i18n/ui';
+import type { Lang } from '../i18n';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const p = ui[lang].pages.home;
+---
+<Layout title={p.metaTitle} description={p.metaDesc} lang={lang} path="/" bodyClass="home">
+  <Hero lang={lang}>
+    <TriageWizard whatsappNumber="31600000000" lang={lang} />
+  </Hero>
+  <WhyChooseUs lang={lang} />
+  <ServicesTeaser lang={lang} />
+  <TeamTeaser lang={lang} />
+  <SpreekuurBanner lang={lang} />
+  <ContactBlock asTeaser={true} lang={lang} />
+</Layout>

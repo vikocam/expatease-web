@@ -1,20 +1,4 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import ContactBlock from '../../components/ContactBlock.astro';
+import ContactView from '../../views/ContactView.astro';
 ---
-<Layout
-  title="Contact | ExpatAid Juridisch Adviesbureau"
-  description="Neem contact op met ExpatAid voor juridisch advies in Den Haag en Regio Haaglanden."
-  lang="nl"
-  active="contact"
-  path="/contact/"
->
-  <section class="pagehero">
-    <div class="wrap">
-      <div class="breadcrumb"><a href="/">Home</a> / Contact</div>
-      <h1>Neem contact op</h1>
-      <p class="sub">We reageren binnen 24 werkuren.</p>
-    </div>
-  </section>
-  <ContactBlock title="Stuur ons een bericht" />
-</Layout>
+<ContactView lang="nl" />

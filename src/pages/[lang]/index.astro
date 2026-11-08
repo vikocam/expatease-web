@@ -1,0 +1,7 @@
+---
+import HomeView from '../../views/HomeView.astro';
+import { langPaths, type Lang } from '../../i18n';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+---
+<HomeView lang={lang} />

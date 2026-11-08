@@ -1,0 +1,7 @@
+---
+import DienstenView from '../../../views/DienstenView.astro';
+import { langPaths, type Lang } from '../../../i18n';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+---
+<DienstenView lang={lang} />

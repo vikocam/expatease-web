@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BioCard from '../components/BioCard.astro';
+import { ui } from '../i18n/ui';
+import { href, homeHref, type Lang } from '../i18n';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = ui[lang];
+const p = t.pages.overons;
+---
+<Layout title={p.metaTitle} description={p.metaDesc} lang={lang} active="over-ons" path="/over-ons/">
+  <section class="pagehero">
+    <div class="wrap">
+      <div class="breadcrumb"><a href={homeHref(lang)}>{t.home}</a> / {p.crumb}</div>
+      <h1>{p.h1}</h1>
+      <p class="sub">{p.sub}</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap" style="max-width:980px">
+      <BioCard
+        lang={lang}
+        name="Lodewijk Nortier"
+        initials="LN"
+        role={p.lodewijk.role}
+        quote={p.lodewijk.quote}
+        bio={p.lodewijk.bio}
+        tags={p.lodewijk.tags}
+      />
+      <BioCard
+        lang={lang}
+        name="Arjan Nouwen"
+        initials="AN"
+        role={p.arjan.role}
+        quote={p.arjan.quote}
+        bio={p.arjan.bio}
+        tags={p.arjan.tags}
+        reverse={true}
+      />
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap" style="text-align:center">
+      <h2>{p.ctaTitle}</h2>
+      <p class="sub" style="margin:0 auto 22px">{p.ctaSub}</p>
+      <div class="herobtns" style="justify-content:center">
+        <a class="btn btn-gold" href={href(lang, '/spreekuur/')}>{p.ctaSpreekuur}</a>
+        <a class="btn btn-outline" href={href(lang, '/contact/')}>{p.ctaContact}</a>
+      </div>
+    </div>
+  </section>
+</Layout>

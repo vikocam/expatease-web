@@ -2,38 +2,37 @@
 // Client-side interactive component. In Astro this is a plain island: all
 // markup renders as static HTML, and the small script below hydrates on load
 // without needing React/Vue — keeping the page at ~0kb JS framework cost.
-interface Props { whatsappNumber?: string; }
-const { whatsappNumber = '31600000000' } = Astro.props;
+import { ui } from '../i18n/ui';
+import { href, type Lang } from '../i18n';
+interface Props { whatsappNumber?: string; lang?: Lang; }
+const { whatsappNumber = '31600000000', lang = 'nl' } = Astro.props;
+const t = ui[lang].wizard;
 ---
-<div class="wizard" id="wizard" data-wa={whatsappNumber}>
-  <h3>Vind je oplossing in 2 stappen</h3>
-  <p class="wsub">Beantwoord twee korte vragen, dan koppelen wij je direct aan de juiste jurist.</p>
+<div class="wizard" id="wizard" data-wa={whatsappNumber} data-intro={t.msgIntro} data-situation={t.msgSituation} data-urgency={t.msgUrgency}>
+  <h3>{t.title}</h3>
+  <p class="wsub">{t.sub}</p>
   <div class="wsteps"><span id="s1"></span><span id="s2"></span></div>
 
   <div class="wstep" data-step="1">
     <div class="pills">
-      <button class="pill" data-v="Huurrecht">Huurrecht &amp; Wonen</button>
-      <button class="pill" data-v="Kooprecht">Kooprecht &amp; Consument</button>
-      <button class="pill" data-v="Overheid">Overheid &amp; Administratie</button>
+      {t.topics.map((o) => <button class="pill" data-v={o.v}>{o.label}</button>)}
     </div>
   </div>
   <div class="wstep" data-step="2" style="display:none">
     <div class="pills">
-      <button class="pill pill-urgent" data-v="Urgent">Urgent (binnen 24u)</button>
-      <button class="pill" data-v="Deze week">Deze week</button>
-      <button class="pill" data-v="Oriënterend">Ik oriënteer me nog</button>
+      {t.urgency.map((o) => <button class={o.urgent ? 'pill pill-urgent' : 'pill'} data-v={o.v}>{o.label}</button>)}
     </div>
   </div>
 
   <div class="wresult" id="wresult">
-    <strong>Bedankt!</strong> Op basis van je antwoorden kunnen Lodewijk of Arjan je direct helpen met <span id="rSituatie"></span>.
+    <strong>{t.thanks}</strong> {t.resultPre} <span id="rSituatie"></span>.
     <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-      <a class="btn" id="waResult" style="background:#25D366;color:#f7f5f0" target="_blank" rel="noopener" href="#">Stuur direct via WhatsApp</a>
-      <a class="linkarrow" style="font-size:13px" href="/contact/">of liever per e-mail &rarr;</a>
+      <a class="btn" id="waResult" style="background:#25D366;color:#f7f5f0" target="_blank" rel="noopener" href="#">{t.waButton}</a>
+      <a class="linkarrow" style="font-size:13px" href={href(lang, '/contact/')}>{t.emailLink} &rarr;</a>
     </div>
-    <p style="margin:10px 0 0;font-size:12px;color:var(--muted)">Je bericht is al ingevuld. Je hoeft alleen op versturen te drukken.</p>
+    <p style="margin:10px 0 0;font-size:12px;color:var(--muted)">{t.prefilled}</p>
   </div>
-  <span class="wback" id="wback" style="display:none">&larr; Andere keuze maken</span>
+  <span class="wback" id="wback" style="display:none">&larr; {t.back}</span>
 </div>
 
 <script>
@@ -74,7 +73,7 @@ const { whatsappNumber = '31600000000' } = Astro.props;
           } else {
             document.querySelectorAll('.wstep').forEach((s) => ((s as HTMLElement).style.display = 'none'));
             document.getElementById('rSituatie')!.textContent = answers[1];
-            const rawMsg = `Hallo ExpatAid, ik kom van de website.\n- Situatie: ${answers[1]}\n- Urgentie: ${answers[2]}`;
+            const rawMsg = `${root.dataset.intro}\n- ${root.dataset.situation}: ${answers[1]}\n- ${root.dataset.urgency}: ${answers[2]}`;
             (document.getElementById('waResult') as HTMLAnchorElement).href = `https://wa.me/${waNumber}?text=${encodeURIComponent(rawMsg)}`;
             document.getElementById('wresult')!.classList.add('show');
             cur = last + 1;

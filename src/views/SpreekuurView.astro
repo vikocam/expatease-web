@@ -1,0 +1,85 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ExpaTableMark from '../components/ExpaTableMark.astro';
+import { ui } from '../i18n/ui';
+import { href, homeHref, withBase, type Lang } from '../i18n';
+import pinIcon from '@phosphor-icons/core/assets/light/map-pin-light.svg?raw';
+import clockIcon from '@phosphor-icons/core/assets/light/clock-light.svg?raw';
+import calendarIcon from '@phosphor-icons/core/assets/light/calendar-dots-light.svg?raw';
+import doorIcon from '@phosphor-icons/core/assets/light/door-open-light.svg?raw';
+import timerIcon from '@phosphor-icons/core/assets/light/timer-light.svg?raw';
+import chatIcon from '@phosphor-icons/core/assets/light/chats-circle-light.svg?raw';
+const icon = (svg: string) => svg.replace('<svg ', '<svg aria-hidden="true" focusable="false" ');
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = ui[lang];
+const p = t.pages.spreekuur;
+const stepIcons = [calendarIcon, doorIcon, timerIcon, chatIcon];
+const factIcons = [calendarIcon, clockIcon, pinIcon];
+---
+<Layout
+  title={p.metaTitle}
+  description={p.metaDesc}
+  lang={lang}
+  active="spreekuur"
+  path="/spreekuur/"
+>
+  <section class="xt-hero">
+    <ExpaTableMark part="mark" />
+    <div class="wrap xt-hero-grid">
+      <div class="xt-hero-text">
+        <div class="breadcrumb xt-crumb"><a href={homeHref(lang)}>{t.home}</a> / {p.crumb}</div>
+        <ExpaTableMark part="icon" />
+        <p class="xt-kicker">{p.kicker}</p>
+        <h1>ExpaTable</h1>
+        <p class="xt-sub">{p.sub}</p>
+      </div>
+      <ul class="xt-facts">
+        {p.facts.map((f, i) => <li><span set:html={icon(factIcons[i])} />{f}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap xt-how">
+      <h2>{p.howTitle}</h2>
+      <ul class="xt-steps reveal-stagger">
+        {p.steps.map((step, i) => <li><span class="xt-ico" set:html={icon(stepIcons[i])} /><p set:html={withBase(lang, step)} /></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap" style="text-align:center">
+      <a class="btn btn-gold" href={href(lang, '/contact/')}>{p.plan}</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .xt-hero{position:relative;overflow:hidden;color:#f7f8fa;padding:48px 0 56px;
+    background:linear-gradient(140deg,var(--navy) 0%,var(--navy-light) 100%)}
+  .xt-hero-grid{position:relative;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end}
+  @media (max-width:767px){.xt-hero-grid{grid-template-columns:1fr;gap:28px}}
+  .xt-crumb{color:#aebbd0}
+  .xt-crumb a:hover{color:#f7f8fa}
+  .xt-crumb{margin-bottom:22px}
+  .xt-kicker{margin:0 0 8px;color:#d6dfeb;font-weight:600;font-size:15px}
+  .xt-hero h1{margin:0 0 14px;color:#f7f8fa;font-size:clamp(44px,6vw,72px);line-height:1;letter-spacing:-.025em}
+  .xt-sub{margin:0;max-width:40ch;color:#d6dfeb;font-size:18px;line-height:1.5}
+
+  .xt-facts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+  .xt-facts li{display:flex;align-items:center;gap:12px;font-size:17px;color:#f7f8fa}
+  .xt-facts span{flex:none;width:28px;height:28px;color:var(--gold)}
+  .xt-facts span :global(svg){width:100%;height:100%;display:block}
+
+  .xt-how{max-width:880px}
+  .xt-how h2{margin:0 0 24px;color:var(--navy);font-size:28px}
+  .xt-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media (max-width:767px){.xt-steps{grid-template-columns:1fr}}
+  .xt-steps li{display:flex;gap:14px;align-items:flex-start;padding:20px;border-radius:14px;background:var(--card);border:1px solid var(--border)}
+  .xt-steps p{margin:0;font-size:15.5px;line-height:1.55;color:var(--text)}
+  .xt-steps a{color:var(--navy);text-decoration:underline;text-underline-offset:3px}
+  .xt-ico{flex:none;width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:var(--navy);color:var(--gold)}
+  .xt-ico :global(svg){width:24px;height:24px}
+</style>

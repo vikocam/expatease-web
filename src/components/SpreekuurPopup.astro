@@ -1,29 +1,32 @@
 ---
 // Pop-up about the weekly walk-in hours. Opens once per visit (sessionStorage),
 // after the cookie choice is made, so the two never stack on first visit.
-interface Props { lang?: 'nl' | 'en' | 'es' | 'fr'; }
+import { ui } from '../i18n/ui';
+import { prefix, type Lang } from '../i18n';
+interface Props { lang?: Lang; }
 const { lang = 'nl' } = Astro.props;
-const base = lang === 'nl' ? '' : `/${lang}`;
+const base = prefix(lang);
+const t = ui[lang].popup;
 import tableIcon from '../icons/round-table.svg?raw';
 const svg = tableIcon.replace('<svg ', '<svg aria-hidden="true" focusable="false" ');
 ---
 <dialog id="spreekuur-popup" class="sp-pop" aria-labelledby="sp-pop-title">
   <form method="dialog" class="sp-close-form">
-    <button class="sp-close" value="close" aria-label="Sluiten">
+    <button class="sp-close" value="close" aria-label={t.close}>
       <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
     </button>
   </form>
   <div class="sp-head">
     <span class="sp-mark" set:html={svg} />
     <span class="sp-icon" set:html={svg} />
-    <p class="sp-kicker">Elke vrijdagmiddag</p>
+    <p class="sp-kicker">{t.kicker}</p>
     <h2 id="sp-pop-title">ExpaTable</h2>
   </div>
   <div class="sp-body">
-  <p class="sp-text">Kom zonder afspraak langs met je vraag. Lodewijk en Arjan geven je een eerste inschatting van je situatie en de vervolgstappen.</p>
+  <p class="sp-text">{t.text}</p>
   <div class="sp-actions">
-    <a class="btn btn-gold" href={`${base}/spreekuur/`}>Meer over ExpaTable</a>
-    <form method="dialog"><button class="btn btn-outline sp-later" value="later">Later</button></form>
+    <a class="btn btn-gold" href={`${base}/spreekuur/`}>{t.more}</a>
+    <form method="dialog"><button class="btn btn-outline sp-later" value="later">{t.later}</button></form>
   </div>
   </div>
 </dialog>

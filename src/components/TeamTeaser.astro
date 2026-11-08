@@ -1,25 +1,28 @@
 ---
-interface Props { lang?: 'nl' | 'en' | 'es' | 'fr'; }
+import { ui } from '../i18n/ui';
+import { prefix, type Lang } from '../i18n';
+interface Props { lang?: Lang; }
 const { lang = 'nl' } = Astro.props;
-const base = lang === 'nl' ? '' : `/${lang}`;
+const base = prefix(lang);
+const t = ui[lang].team;
 ---
 <section class="block alt" id="team">
   <div class="wrap">
     <div class="sechead">
       <div>
-        <h2>Je vertrouwde team in Den Haag</h2>
-        <p>Twee ervaren juristen, één doel: heldere rechtshulp voor internationals.</p>
+        <h2>{t.title}</h2>
+        <p>{t.sub}</p>
       </div>
-      <a class="linkarrow" href={`${base}/over-ons/`}>Meer over ons team &rarr;</a>
+      <a class="linkarrow" href={`${base}/over-ons/`}>{t.more} &rarr;</a>
     </div>
     <div class="teamgrid reveal-stagger">
       <div class="tcard">
         <div class="avatar">LN</div>
-        <div><h4>Lodewijk Nortier</h4><span class="role">Jurist, 18+ jaar ervaring</span><p>Internationaal georiënteerd, pragmatisch en resultaatgericht. Vertaling in het Engels en Spaans is mogelijk.</p></div>
+        <div><h4>Lodewijk Nortier</h4><span class="role">{t.lodewijk.role}</span><p>{t.lodewijk.text}</p></div>
       </div>
       <div class="tcard">
         <div class="avatar">AN</div>
-        <div><h4>Arjan Nouwen</h4><span class="role">Jurist, 20+ jaar ervaring</span><p>Communiceert vlot met expats, empathisch en toegankelijk, vertaalt complexe kwesties naar praktisch advies.</p></div>
+        <div><h4>Arjan Nouwen</h4><span class="role">{t.arjan.role}</span><p>{t.arjan.text}</p></div>
       </div>
     </div>
   </div>

@@ -1,27 +1,26 @@
 ---
 import LogoIcon from './LogoIcon.astro';
 
+import { ui } from '../i18n/ui';
+import { prefix, href, homeHref, type Lang } from '../i18n';
 interface Props {
-  lang?: 'nl' | 'en' | 'es' | 'fr';
-  active?: 'diensten' | 'over-ons' | 'spreekuur' | 'contact' | '';
+  lang?: Lang;
+  active?: 'diensten' | 'over-ons' | 'spreekuur' | 'blog' | 'contact' | '';
+  /** page path without language prefix, so the switcher opens the same page in another language */
+  path?: string;
 }
-const { lang = 'nl', active = '' } = Astro.props;
+const { lang = 'nl', active = '', path = '/' } = Astro.props;
 
-const base = lang === 'nl' ? '' : `/${lang}`;
+const base = prefix(lang);
+const t = { ...ui[lang].nav };
+const switchTo = (l: Lang) => (path === '/' ? homeHref(l) : href(l, path));
 
-const labels: Record<string, Record<string,string>> = {
-  nl: { diensten:'Diensten', overons:'Over Ons', spreekuur:'Spreekuur', contact:'Contact', cta:'Boek een consult' },
-  en: { diensten:'Services', overons:'About Us', spreekuur:'Walk-in Hours', contact:'Contact', cta:'Book a Consultation' },
-  es: { diensten:'Servicios', overons:'Sobre Nosotros', spreekuur:'Consulta Semanal', contact:'Contacto', cta:'Reserva una Consulta' },
-  fr: { diensten:'Services', overons:'À Propos', spreekuur:'Permanence', contact:'Contact', cta:'Réserver un Rendez-vous' },
-};
-const t = labels[lang];
 ---
 <header class="site">
   <div class="wrap headrow">
-    <a class="logo" href={base || '/'}>
+    <a class="logo" href={homeHref(lang)}>
       <LogoIcon />
-      <span>EXPATAID<small>Juridisch Advies</small></span>
+      <span>EXPATAID<small>{ui[lang].logoSub}</small></span>
     </a>
     <nav class="mainnav">
       <a href={`${base}/diensten/`} class={active==='diensten' ? 'active' : ''}>{t.diensten}</a>
@@ -31,10 +30,10 @@ const t = labels[lang];
     </nav>
     <div class="headright">
       <div class="langsel">
-        <a href="/" class={lang==='nl' ? 'active' : ''}>NL</a>
-        <a href="/en/" class={lang==='en' ? 'active' : ''}>EN</a>
-        <a href="/es/" class={lang==='es' ? 'active' : ''}>ES</a>
-        <a href="/fr/" class={lang==='fr' ? 'active' : ''}>FR</a>
+        <a href={switchTo('nl')} hreflang="nl" lang="nl" class={lang==='nl' ? 'active' : ''} aria-current={lang==='nl' ? 'true' : undefined}>NL</a>
+        <a href={switchTo('en')} hreflang="en" lang="en" class={lang==='en' ? 'active' : ''} aria-current={lang==='en' ? 'true' : undefined}>EN</a>
+        <a href={switchTo('es')} hreflang="es" lang="es" class={lang==='es' ? 'active' : ''} aria-current={lang==='es' ? 'true' : undefined}>ES</a>
+        <a href={switchTo('fr')} hreflang="fr" lang="fr" class={lang==='fr' ? 'active' : ''} aria-current={lang==='fr' ? 'true' : undefined}>FR</a>
       </div>
       <a class="btn btn-gold" href={`${base}/contact/`} style="padding:10px 18px;font-size:13.5px">{t.cta}</a>
     </div>

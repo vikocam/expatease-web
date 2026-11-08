@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import { ui } from '../i18n/ui';
+import { homeHref, type Lang } from '../i18n';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = ui[lang];
+const p = t.pages.contact;
+---
+<Layout title={p.metaTitle} description={p.metaDesc} lang={lang} active="contact" path="/contact/">
+  <section class="pagehero">
+    <div class="wrap">
+      <div class="breadcrumb"><a href={homeHref(lang)}>{t.home}</a> / {p.crumb}</div>
+      <h1>{p.h1}</h1>
+      <p class="sub">{p.sub}</p>
+    </div>
+  </section>
+  <ContactBlock title={p.formTitle} lang={lang} />
+</Layout>

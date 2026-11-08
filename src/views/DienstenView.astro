@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceIcon from '../components/ServiceIcon.astro';
+import { servicesFor } from '../i18n/services';
+import { ui } from '../i18n/ui';
+import { href, homeHref, type Lang } from '../i18n';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = ui[lang];
+const p = t.pages.diensten;
+const services = servicesFor(lang);
+---
+<Layout title={p.metaTitle} description={p.metaDesc} lang={lang} active="diensten" path="/diensten/">
+  <section class="pagehero">
+    <div class="wrap">
+      <div class="breadcrumb"><a href={homeHref(lang)}>{t.home}</a> / {p.crumb}</div>
+      <h1>{p.h1}</h1>
+      <p class="sub">{p.sub}</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid3 reveal-stagger">
+      {services.map((s) => (
+        <div class="card">
+          <ServiceIcon slug={s.slug} />
+          <div class="body">
+            <h3>{s.title}</h3>
+            <p>{s.teaser}</p>
+            <a class="readmore" href={href(lang, `/diensten/${s.slug}/`)}>{t.servicesTeaser.readMore} &rarr;</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>

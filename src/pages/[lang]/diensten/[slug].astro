@@ -1,0 +1,11 @@
+---
+import DienstView from '../../../views/DienstView.astro';
+import { serviceSlugs, type ServiceSlug } from '../../../i18n/services';
+import { prefixedLangs, type Lang } from '../../../i18n';
+export function getStaticPaths() {
+  return prefixedLangs.flatMap((lang) => serviceSlugs.map((slug) => ({ params: { lang, slug } })));
+}
+const lang = Astro.params.lang as Lang;
+const slug = Astro.params.slug as ServiceSlug;
+---
+<DienstView lang={lang} slug={slug} />

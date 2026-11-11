@@ -4,6 +4,7 @@
 // without needing React/Vue — keeping the page at ~0kb JS framework cost.
 import { ui } from '../i18n/ui';
 import { href, type Lang } from '../i18n';
+import { SHOW_WHATSAPP } from '../config';
 interface Props { whatsappNumber?: string; lang?: Lang; }
 const { whatsappNumber = '31600000000', lang = 'nl' } = Astro.props;
 const t = ui[lang].wizard;
@@ -27,10 +28,16 @@ const t = ui[lang].wizard;
   <div class="wresult" id="wresult">
     <strong>{t.thanks}</strong> {t.resultPre} <span id="rSituatie"></span>.
     <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-      <a class="btn" id="waResult" style="background:#25D366;color:#f7f5f0" target="_blank" rel="noopener" href="#">{t.waButton}</a>
-      <a class="linkarrow" style="font-size:13px" href={href(lang, '/contact/')}>{t.emailLink} &rarr;</a>
+      {SHOW_WHATSAPP ? (
+        <>
+          <a class="btn" id="waResult" style="background:#25D366;color:#f7f5f0" target="_blank" rel="noopener" href="#">{t.waButton}</a>
+          <a class="linkarrow" style="font-size:13px" href={href(lang, '/contact/')}>{t.emailLink} &rarr;</a>
+        </>
+      ) : (
+        <a class="btn btn-gold" href={href(lang, '/contact/')}>{t.formButton}</a>
+      )}
     </div>
-    <p style="margin:10px 0 0;font-size:12px;color:var(--muted)">{t.prefilled}</p>
+    {SHOW_WHATSAPP && <p style="margin:10px 0 0;font-size:12px;color:var(--muted)">{t.prefilled}</p>}
   </div>
   <span class="wback" id="wback" style="display:none">&larr; {t.back}</span>
 </div>
@@ -74,7 +81,8 @@ const t = ui[lang].wizard;
             document.querySelectorAll('.wstep').forEach((s) => ((s as HTMLElement).style.display = 'none'));
             document.getElementById('rSituatie')!.textContent = answers[1];
             const rawMsg = `${root.dataset.intro}\n- ${root.dataset.situation}: ${answers[1]}\n- ${root.dataset.urgency}: ${answers[2]}`;
-            (document.getElementById('waResult') as HTMLAnchorElement).href = `https://wa.me/${waNumber}?text=${encodeURIComponent(rawMsg)}`;
+            const waLink = document.getElementById('waResult') as HTMLAnchorElement | null;
+            if (waLink) waLink.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(rawMsg)}`;
             document.getElementById('wresult')!.classList.add('show');
             cur = last + 1;
             paintDots();

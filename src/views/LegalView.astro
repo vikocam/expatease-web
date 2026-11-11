@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { legalTexts, legalNote, type LegalDoc } from '../i18n/legal';
 import { ui } from '../i18n/ui';
-import { SHOW_EXPATABLE } from '../config';
+import { SHOW_EXPATABLE, SHOW_WHATSAPP } from '../config';
 import { homeHref, withBase, type Lang } from '../i18n';
 interface Props { lang: Lang; doc: LegalDoc; }
 const { lang, doc } = Astro.props;
@@ -10,6 +10,9 @@ const t = ui[lang];
 const p = legalTexts[lang][doc];
 const path = `/${doc}/`;
 const note = lang === 'nl' ? '' : legalNote[lang].replace('{nl}', path);
+let body = p.html;
+if (!SHOW_EXPATABLE) body = body.replace(/<li data-expatable>.*?<\/li>/g, '');
+if (!SHOW_WHATSAPP) body = body.replace(/<span data-whatsapp>.*?<\/span>/g, '');
 ---
 <Layout title={p.title} description={p.description} lang={lang} path={path}>
   <section class="pagehero">
@@ -23,7 +26,7 @@ const note = lang === 'nl' ? '' : legalNote[lang].replace('{nl}', path);
   <section class="block">
     <div class="wrap prose">
       {note && <p class="legal-note" set:html={note} />}
-      <Fragment set:html={withBase(lang, SHOW_EXPATABLE ? p.html : p.html.replace(/<li data-expatable>.*?<\/li>/g, ''))} />
+      <Fragment set:html={withBase(lang, body)} />
     </div>
   </section>
 </Layout>

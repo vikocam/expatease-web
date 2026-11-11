@@ -170,3 +170,50 @@ body .svc-mark svg{width:100%;height:100%;display:block}
 .footgrid.footgrid-3{grid-template-columns:1.6fr 1fr 1fr}
 @media (max-width:880px){.footgrid.footgrid-3{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.footgrid.footgrid-3{grid-template-columns:1fr}}
+
+/* ---------- Header on small screens: Menu button + panel with links, language and booking ---------- */
+.menubtn{
+  display:none;align-items:center;gap:8px;height:42px;padding:0 14px;
+  border:1.5px solid var(--border);border-radius:10px;background:var(--card);color:var(--navy);
+  font:inherit;font-size:14px;font-weight:600;cursor:pointer;
+}
+.menubtn:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.menubtn-bars{position:relative;width:18px;height:12px;display:block}
+.menubtn-bars span{position:absolute;left:0;width:100%;height:2px;border-radius:2px;background:currentColor;transition:transform .3s var(--ease),opacity .2s ease}
+.menubtn-bars span:nth-child(1){top:0}
+.menubtn-bars span:nth-child(2){top:5px}
+.menubtn-bars span:nth-child(3){top:10px}
+.menubtn[aria-expanded="true"] .menubtn-bars span:nth-child(1){transform:translateY(5px) rotate(45deg)}
+.menubtn[aria-expanded="true"] .menubtn-bars span:nth-child(2){opacity:0}
+.menubtn[aria-expanded="true"] .menubtn-bars span:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+
+.mobilemenu{display:none}
+@media (max-width:880px){
+  .menubtn{display:inline-flex}
+  .headright{gap:10px}
+  .mobilemenu{
+    display:block;position:absolute;left:0;right:0;top:100%;
+    max-height:calc(100vh - 76px);overflow-y:auto;
+    background:var(--card);border-bottom:1px solid var(--border);
+    box-shadow:0 24px 40px -24px rgba(12,47,95,.35);
+    padding:12px 0 22px;
+    opacity:0;visibility:hidden;transform:translateY(-8px);
+    transition:opacity .25s ease,transform .3s var(--ease),visibility 0s linear .3s;
+  }
+  .mobilemenu.open{opacity:1;visibility:visible;transform:none;transition:opacity .25s ease,transform .3s var(--ease),visibility 0s}
+  .mm-nav{display:flex;flex-direction:column}
+  .mm-nav a{padding:14px 2px;border-bottom:1px solid var(--border);font-size:17px;font-weight:600;color:var(--text)}
+  .mm-nav a.active{color:var(--navy);box-shadow:inset 3px 0 0 var(--gold);padding-left:12px}
+  .mm-label{margin:20px 0 8px;font-size:13px;font-weight:700;color:var(--muted)}
+  .mm-langs{display:flex;gap:8px;flex-wrap:wrap}
+  .mm-langs a{min-width:52px;padding:10px 0;text-align:center;border:1.5px solid var(--border);border-radius:10px;font-weight:700;font-size:14px;color:var(--text)}
+  .mm-langs a.active{background:var(--navy);border-color:var(--navy);color:#f7f8fa}
+  .mm-cta{margin-top:22px;width:100%;justify-content:center}
+}
+/* very small screens: the booking button lives in the menu and the bottom bar */
+@media (max-width:560px){ .headcta{display:none} }
+@media (prefers-reduced-motion: reduce){
+  .mobilemenu,.mobilemenu.open,.menubtn-bars span{transition:none}
+}
+/* while the menu is open it sits above the cookie bar (z 200) and the bottom booking bar (z 60) */
+html.menu-open header.site{z-index:210}

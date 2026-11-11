@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { prefixBase } from './integrations/prefix-base.mjs';
@@ -8,7 +9,8 @@ const site = process.env.SITE_URL || 'https://expataid.nl';
 const base = process.env.BASE_PATH || '/';
 // Same rule as src/config.ts: the sin-expatable build has no ExpaTable page in the sitemap.
 const branch = process.env.VERCEL_GIT_COMMIT_REF || process.env.GITHUB_REF_NAME || '';
-const showExpaTable = branch !== 'sin-expatable' && process.env.PUBLIC_SHOW_EXPATABLE !== 'false';
+const variant = JSON.parse(readFileSync(new URL('./src/variant.json', import.meta.url), 'utf8'));
+const showExpaTable = variant.showExpaTable && branch !== 'sin-expatable' && process.env.PUBLIC_SHOW_EXPATABLE !== 'false';
 
 export default defineConfig({
   site,

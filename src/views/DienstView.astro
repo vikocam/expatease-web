@@ -2,12 +2,17 @@
 import Layout from '../layouts/Layout.astro';
 import { serviceTexts, type ServiceSlug } from '../i18n/services';
 import { ui } from '../i18n/ui';
+import { SHOW_EXPATABLE } from '../config';
 import { href, homeHref, type Lang } from '../i18n';
 interface Props { lang: Lang; slug: ServiceSlug; }
 const { lang, slug } = Astro.props;
 const t = ui[lang];
 const p = t.pages.dienst;
-const content = serviceTexts[lang][slug];
+const base = serviceTexts[lang][slug];
+// without ExpaTable, the tenancy intake step no longer mentions the Friday walk-in
+const content = SHOW_EXPATABLE || slug !== 'huurrecht'
+  ? base
+  : { ...base, process: [p.intakeNoTable, ...base.process.slice(1)] };
 ---
 <Layout
   title={content.metaTitle}

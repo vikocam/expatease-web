@@ -3,6 +3,7 @@ import LogoIcon from './LogoIcon.astro';
 
 import { ui } from '../i18n/ui';
 import { prefix, href, homeHref, type Lang } from '../i18n';
+import { SHOW_EXPATABLE } from '../config';
 interface Props {
   lang?: Lang;
   active?: 'diensten' | 'over-ons' | 'spreekuur' | 'blog' | 'contact' | '';
@@ -25,7 +26,7 @@ const switchTo = (l: Lang) => (path === '/' ? homeHref(l) : href(l, path));
     <nav class="mainnav">
       <a href={`${base}/diensten/`} class={active==='diensten' ? 'active' : ''}>{t.diensten}</a>
       <a href={`${base}/over-ons/`} class={active==='over-ons' ? 'active' : ''}>{t.overons}</a>
-      <a href={`${base}/spreekuur/`} class={active==='spreekuur' ? 'active' : ''}>{t.spreekuur}</a>
+      {SHOW_EXPATABLE && <a href={`${base}/spreekuur/`} class={active==='spreekuur' ? 'active' : ''}>{t.spreekuur}</a>}
       <a href={`${base}/contact/`} class={active==='contact' ? 'active' : ''}>{t.contact}</a>
     </nav>
     <div class="headright">

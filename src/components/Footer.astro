@@ -1,6 +1,7 @@
 ---
 import { ui } from '../i18n/ui';
 import { prefix, type Lang } from '../i18n';
+import { SHOW_EXPATABLE } from '../config';
 interface Props { lang?: Lang; }
 const { lang = 'nl' } = Astro.props;
 const base = prefix(lang);
@@ -31,7 +32,7 @@ const SHOW_HOURS = false;
         <h5>{t.navTitle}</h5>
         <a href={`${base}/diensten/`}>{nav.diensten}</a>
         <a href={`${base}/over-ons/`}>{nav.overons}</a>
-        <a href={`${base}/spreekuur/`}>{nav.spreekuur}</a>
+        {SHOW_EXPATABLE && <a href={`${base}/spreekuur/`}>{nav.spreekuur}</a>}
         <a href={`${base}/contact/`}>{nav.contact}</a>
       </div>
       <div class="fline">
@@ -43,7 +44,7 @@ const SHOW_HOURS = false;
       {SHOW_HOURS && (
       <div class="fline">
         <h5>{t.hoursTitle}</h5>
-        {t.hours.map((h) => <span>{h}</span>)}
+        {t.hours.filter((_, i) => SHOW_EXPATABLE || i !== 1).map((h) => <span>{h}</span>)}
       </div>
       )}
     </div>

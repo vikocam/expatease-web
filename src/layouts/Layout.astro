@@ -5,6 +5,7 @@ import CookieConsent from '../components/CookieConsent.astro';
 import Analytics from '../components/Analytics.astro';
 import ScrollReveal from '../components/ScrollReveal.astro';
 import SpreekuurPopup from '../components/SpreekuurPopup.astro';
+import { SHOW_EXPATABLE } from '../config';
 import { ui } from '../i18n/ui';
 import { langs, type Lang } from '../i18n';
 import '../styles/global.css';
@@ -23,7 +24,8 @@ interface Props {
 
 const { title, description, lang = 'nl', active = '', path = '/', bodyClass } = Astro.props;
 const site = (Astro.site?.origin ?? 'https://expataid.nl') + import.meta.env.BASE_URL.replace(/\/$/, '');
-const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
+// the second link (without ExpaTable) duplicates the main site, so search engines skip it
+const noindex = import.meta.env.PUBLIC_NOINDEX === 'true' || !SHOW_EXPATABLE;
 // Every page exists in all four languages (same path, language prefix), so all are listed as alternates.
 const liveLocales = langs;
 const hrefFor = (l: string) => (l === 'nl' ? `${site}${path}` : `${site}/${l}${path}`);
@@ -71,6 +73,6 @@ const hrefFor = (l: string) => (l === 'nl' ? `${site}${path}` : `${site}/${l}${p
     <CookieConsent lang={lang} />
     <Analytics />
     <ScrollReveal />
-    {active !== 'spreekuur' && <SpreekuurPopup lang={lang} />}
+    {SHOW_EXPATABLE && active !== 'spreekuur' && <SpreekuurPopup lang={lang} />}
   </body>
 </html>

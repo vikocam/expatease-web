@@ -1,9 +1,10 @@
+import { SHOW_EXPATABLE } from '../config';
 import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = ({ site }) => {
   const origin = (site ?? new URL('https://expataid.nl')).origin;
   const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-  const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
+  const noindex = import.meta.env.PUBLIC_NOINDEX === 'true' || !SHOW_EXPATABLE;
   const body = noindex
     ? 'User-agent: *\nDisallow: /\n'
     : `User-agent: *\nAllow: /\n\nSitemap: ${origin}${base}/sitemap-index.xml\n`;

@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { legalTexts, legalNote, type LegalDoc } from '../i18n/legal';
 import { ui } from '../i18n/ui';
+import { SHOW_EXPATABLE } from '../config';
 import { homeHref, withBase, type Lang } from '../i18n';
 interface Props { lang: Lang; doc: LegalDoc; }
 const { lang, doc } = Astro.props;
@@ -22,7 +23,7 @@ const note = lang === 'nl' ? '' : legalNote[lang].replace('{nl}', path);
   <section class="block">
     <div class="wrap prose">
       {note && <p class="legal-note" set:html={note} />}
-      <Fragment set:html={withBase(lang, p.html)} />
+      <Fragment set:html={withBase(lang, SHOW_EXPATABLE ? p.html : p.html.replace(/<li data-expatable>.*?<\/li>/g, ''))} />
     </div>
   </section>
 </Layout>

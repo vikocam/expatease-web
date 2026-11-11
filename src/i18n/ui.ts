@@ -144,6 +144,7 @@ const nl = {
       ctaTitle: 'Klaar om verder te gaan?',
       ctaSub: 'Plan een gesprek of stuur direct een bericht via WhatsApp.',
       ctaBook: 'Boek een consult',
+      intakeNoTable: 'Korte intake (via het contactformulier)',
     },
     overons: {
       metaTitle: 'Over Ons | Lodewijk Nortier & Arjan Nouwen | ExpatAid',
@@ -165,6 +166,7 @@ const nl = {
       },
       ctaTitle: 'Liever meteen iemand spreken?',
       ctaSub: 'Kom langs bij ons wekelijkse inloopspreekuur of stuur direct een bericht.',
+      ctaSubNoTable: 'Stuur ons direct een bericht, dan nemen we snel contact met je op.',
       ctaSpreekuur: 'Bekijk het Spreekuur',
       ctaContact: 'Contact',
     },
@@ -338,6 +340,7 @@ const en: UI = {
       ctaTitle: 'Ready to take the next step?',
       ctaSub: 'Schedule a meeting or send a message directly via WhatsApp.',
       ctaBook: 'Book a consultation',
+      intakeNoTable: 'Short intake (via the contact form)',
     },
     overons: {
       metaTitle: 'About Us | Lodewijk Nortier & Arjan Nouwen | ExpatAid',
@@ -359,6 +362,7 @@ const en: UI = {
       },
       ctaTitle: 'Prefer to talk to someone right away?',
       ctaSub: 'Come to our weekly walk-in hours or send us a message directly.',
+      ctaSubNoTable: 'Send us a message directly and we will get back to you quickly.',
       ctaSpreekuur: 'See the walk-in hours',
       ctaContact: 'Contact',
     },
@@ -530,6 +534,7 @@ const es: UI = {
       ctaTitle: '¿Listo para dar el siguiente paso?',
       ctaSub: 'Agenda una reunión o envía un mensaje directamente por WhatsApp.',
       ctaBook: 'Reserva una consulta',
+      intakeNoTable: 'Breve toma de contacto (a través del formulario de contacto)',
     },
     overons: {
       metaTitle: 'Sobre nosotros | Lodewijk Nortier y Arjan Nouwen | ExpatAid',
@@ -551,6 +556,7 @@ const es: UI = {
       },
       ctaTitle: '¿Prefieres hablar con alguien ya?',
       ctaSub: 'Ven a nuestra consulta semanal sin cita o envíanos un mensaje directamente.',
+      ctaSubNoTable: 'Envíanos un mensaje directamente y te responderemos enseguida.',
       ctaSpreekuur: 'Ver la consulta semanal',
       ctaContact: 'Contacto',
     },
@@ -722,6 +728,7 @@ const fr: UI = {
       ctaTitle: "Prêt à passer à l'étape suivante ?",
       ctaSub: 'Prenez rendez-vous ou envoyez-nous directement un message via WhatsApp.',
       ctaBook: 'Prendre rendez-vous',
+      intakeNoTable: 'Bref premier contact (via le formulaire de contact)',
     },
     overons: {
       metaTitle: 'À propos | Lodewijk Nortier et Arjan Nouwen | ExpatAid',
@@ -743,6 +750,7 @@ const fr: UI = {
       },
       ctaTitle: "Vous préférez parler à quelqu'un tout de suite ?",
       ctaSub: 'Venez à notre permanence hebdomadaire ou envoyez-nous directement un message.',
+      ctaSubNoTable: 'Envoyez-nous directement un message, nous vous répondrons rapidement.',
       ctaSpreekuur: 'Voir la permanence',
       ctaContact: 'Contact',
     },

@@ -1,4 +1,9 @@
 ---
 import SpreekuurView from '../../views/SpreekuurView.astro';
+import { SHOW_EXPATABLE } from '../../config';
+// without ExpaTable this page only sends visitors to the home page of the same link
+const home = '/';
 ---
-<SpreekuurView lang="nl" />
+{SHOW_EXPATABLE ? <SpreekuurView lang="nl" /> : (
+  <html lang="nl"><head><meta charset="utf-8" /><meta name="robots" content="noindex" /><meta http-equiv="refresh" content={`0;url=${home}`} /><title>ExpatAid</title></head><body><a href={home}>ExpatAid</a></body></html>
+)}

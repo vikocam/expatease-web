@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import BioCard from '../components/BioCard.astro';
 import { ui } from '../i18n/ui';
+import { SHOW_EXPATABLE } from '../config';
 import { href, homeHref, type Lang } from '../i18n';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
@@ -44,10 +45,10 @@ const p = t.pages.overons;
   <section class="block alt">
     <div class="wrap" style="text-align:center">
       <h2>{p.ctaTitle}</h2>
-      <p class="sub" style="margin:0 auto 22px">{p.ctaSub}</p>
+      <p class="sub" style="margin:0 auto 22px">{SHOW_EXPATABLE ? p.ctaSub : p.ctaSubNoTable}</p>
       <div class="herobtns" style="justify-content:center">
-        <a class="btn btn-gold" href={href(lang, '/spreekuur/')}>{p.ctaSpreekuur}</a>
-        <a class="btn btn-outline" href={href(lang, '/contact/')}>{p.ctaContact}</a>
+        {SHOW_EXPATABLE && <a class="btn btn-gold" href={href(lang, '/spreekuur/')}>{p.ctaSpreekuur}</a>}
+        <a class={SHOW_EXPATABLE ? 'btn btn-outline' : 'btn btn-gold'} href={href(lang, '/contact/')}>{p.ctaContact}</a>
       </div>
     </div>
   </section>

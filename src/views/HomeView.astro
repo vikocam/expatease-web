@@ -8,6 +8,7 @@ import TeamTeaser from '../components/TeamTeaser.astro';
 import SpreekuurBanner from '../components/SpreekuurBanner.astro';
 import ContactBlock from '../components/ContactBlock.astro';
 import { ui } from '../i18n/ui';
+import { SHOW_EXPATABLE } from '../config';
 import type { Lang } from '../i18n';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
@@ -20,6 +21,6 @@ const p = ui[lang].pages.home;
   <WhyChooseUs lang={lang} />
   <ServicesTeaser lang={lang} />
   <TeamTeaser lang={lang} />
-  <SpreekuurBanner lang={lang} />
+  {SHOW_EXPATABLE && <SpreekuurBanner lang={lang} />}
   <ContactBlock asTeaser={true} lang={lang} />
 </Layout>

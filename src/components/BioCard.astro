@@ -1,6 +1,7 @@
 ---
 import { ui } from '../i18n/ui';
 import type { Lang } from '../i18n';
+import { SHOW_WHATSAPP } from '../config';
 interface Props {
   name: string;
   initials: string;
@@ -39,9 +40,11 @@ const t = ui[lang].bio;
     <div class="biotags">
       {tags.map((t) => <span class="biotag">{t}</span>)}
     </div>
+    {SHOW_WHATSAPP && (
     <a class="linkarrow" href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener">
       {t.whatsapp} &rarr;
     </a>
+    )}
   </div>
 </div>
 

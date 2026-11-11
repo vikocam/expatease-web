@@ -1,7 +1,7 @@
 ---
 import { ui } from '../i18n/ui';
 import { prefix, type Lang } from '../i18n';
-import { SHOW_EXPATABLE } from '../config';
+import { SHOW_EXPATABLE, SHOW_WHATSAPP } from '../config';
 interface Props { lang?: Lang; }
 const { lang = 'nl' } = Astro.props;
 const base = prefix(lang);
@@ -44,7 +44,7 @@ const SHOW_HOURS = false;
       {SHOW_HOURS && (
       <div class="fline">
         <h5>{t.hoursTitle}</h5>
-        {t.hours.filter((_, i) => SHOW_EXPATABLE || i !== 1).map((h) => <span>{h}</span>)}
+        {t.hours.filter((_, i) => (SHOW_EXPATABLE || i !== 1) && (SHOW_WHATSAPP || i !== 2)).map((h) => <span>{h}</span>)}
       </div>
       )}
     </div>
@@ -55,6 +55,6 @@ const SHOW_HOURS = false;
   </div>
 </footer>
 <div class="mfloat">
-  <a class="wa" href={`https://wa.me/31600000000?text=${encodeURIComponent(t.waText)}`} target="_blank" rel="noopener">WhatsApp</a>
+  {SHOW_WHATSAPP && <a class="wa" href={`https://wa.me/31600000000?text=${encodeURIComponent(t.waText)}`} target="_blank" rel="noopener">WhatsApp</a>}
   <a class="bk" href={`${base}/contact/`}>{t.mobileBook}</a>
 </div>

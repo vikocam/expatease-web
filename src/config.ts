@@ -10,5 +10,9 @@ import variant from './variant.json';
 // sin-expatable branch, so the result never depends on hosting settings.
 const branch = process.env.VERCEL_GIT_COMMIT_REF || process.env.GITHUB_REF_NAME || '';
 export const NO_EXPATABLE_BRANCH = 'sin-expatable';
+// WhatsApp contact (buttons, links, wizard hand-off). Off on the second link,
+// where the contact form is the only channel for now.
+export const SHOW_WHATSAPP = variant.showWhatsApp !== false;
+
 export const SHOW_EXPATABLE =
   variant.showExpaTable && branch !== NO_EXPATABLE_BRANCH && process.env.PUBLIC_SHOW_EXPATABLE !== 'false';

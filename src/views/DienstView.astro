@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { serviceTexts, type ServiceSlug } from '../i18n/services';
 import { ui } from '../i18n/ui';
-import { SHOW_EXPATABLE } from '../config';
+import { SHOW_EXPATABLE, SHOW_WHATSAPP } from '../config';
 import { href, homeHref, type Lang } from '../i18n';
 interface Props { lang: Lang; slug: ServiceSlug; }
 const { lang, slug } = Astro.props;
@@ -28,7 +28,7 @@ const content = SHOW_EXPATABLE || slug !== 'huurrecht'
       <p class="sub">{content.intro}</p>
       <div class="herobtns">
         <a class="btn btn-gold" href={href(lang, '/contact/')}>{p.book}</a>
-        <a class="btn btn-outline" href="https://wa.me/31600000000" target="_blank" rel="noopener">WhatsApp</a>
+        {SHOW_WHATSAPP && <a class="btn btn-outline" href="https://wa.me/31600000000" target="_blank" rel="noopener">WhatsApp</a>}
       </div>
     </div>
   </section>
@@ -60,10 +60,10 @@ const content = SHOW_EXPATABLE || slug !== 'huurrecht'
   <section class="block alt">
     <div class="wrap" style="text-align:center">
       <h2>{p.ctaTitle}</h2>
-      <p class="sub" style="margin:0 auto 22px">{p.ctaSub}</p>
+      <p class="sub" style="margin:0 auto 22px">{SHOW_WHATSAPP ? p.ctaSub : p.ctaSubNoWa}</p>
       <div class="herobtns" style="justify-content:center">
         <a class="btn btn-gold" href={href(lang, '/contact/')}>{p.ctaBook}</a>
-        <a class="btn btn-wa" href="https://wa.me/31600000000" target="_blank" rel="noopener">WhatsApp</a>
+        {SHOW_WHATSAPP && <a class="btn btn-wa" href="https://wa.me/31600000000" target="_blank" rel="noopener">WhatsApp</a>}
       </div>
     </div>
   </section>

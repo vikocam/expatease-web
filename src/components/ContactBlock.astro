@@ -1,6 +1,7 @@
 ---
 import { ui } from '../i18n/ui';
 import type { Lang } from '../i18n';
+import { SHOW_WHATSAPP } from '../config';
 interface Props { title?: string; asTeaser?: boolean; lang?: Lang; }
 const { lang = 'nl', asTeaser = false } = Astro.props;
 const t = ui[lang].contact;
@@ -36,6 +37,7 @@ const title = Astro.props.title ?? t.title;
           <p>{t.ids}</p>
         </div>
 
+        {SHOW_WHATSAPP && (
         <div class="directcontacts">
           <p class="directcontacts-label">{t.directLabel}</p>
           <a class="directcard" href="https://wa.me/31600000000" target="_blank" rel="noopener">
@@ -43,6 +45,7 @@ const title = Astro.props.title ?? t.title;
             <span><strong>Lodewijk &amp; Arjan</strong><small>{t.waSmall}</small></span>
           </a>
         </div>
+        )}
       </div>
     </div>
   </div>

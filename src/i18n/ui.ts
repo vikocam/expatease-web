@@ -6,7 +6,7 @@ import type { Lang } from './index';
 const nl = {
   logoSub: 'Juridisch Advies',
   home: 'Home',
-  nav: { diensten: 'Diensten', overons: 'Over Ons', spreekuur: 'Spreekuur', contact: 'Contact', cta: 'Boek een consult' },
+  nav: { diensten: 'Diensten', overons: 'Over Ons', spreekuur: 'Spreekuur', contact: 'Contact', cta: 'Boek een consult', menu: 'Menu', language: 'Taal' },
   ldDescription: 'Juridisch adviesbureau voor expats in Regio Haaglanden: huurrecht, kooprecht en overheidszaken.',
   footer: {
     about: 'Juridisch advies en geschillenbeslechting voor expats in Regio Haaglanden: huurrecht, kooprecht en overheidszaken.',
@@ -202,7 +202,7 @@ export type UI = typeof nl;
 const en: UI = {
   logoSub: 'Legal Advice',
   home: 'Home',
-  nav: { diensten: 'Services', overons: 'About Us', spreekuur: 'Walk-in Hours', contact: 'Contact', cta: 'Book a consultation' },
+  nav: { diensten: 'Services', overons: 'About Us', spreekuur: 'Walk-in Hours', contact: 'Contact', cta: 'Book a consultation', menu: 'Menu', language: 'Language' },
   ldDescription: 'Legal advisory firm for expats in the Haaglanden region: tenancy law, purchase law and government matters.',
   footer: {
     about: 'Legal advice and dispute resolution for expats in the Haaglanden region: tenancy law, purchase law and government matters.',
@@ -396,7 +396,7 @@ const en: UI = {
 const es: UI = {
   logoSub: 'Asesoría Jurídica',
   home: 'Inicio',
-  nav: { diensten: 'Servicios', overons: 'Sobre nosotros', spreekuur: 'Consulta semanal', contact: 'Contacto', cta: 'Reserva una consulta' },
+  nav: { diensten: 'Servicios', overons: 'Sobre nosotros', spreekuur: 'Consulta semanal', contact: 'Contacto', cta: 'Reserva una consulta', menu: 'Menú', language: 'Idioma' },
   ldDescription: 'Asesoría jurídica para expats en la región de Haaglanden: alquiler, compraventa y asuntos con la administración.',
   footer: {
     about: 'Asesoría jurídica y resolución de conflictos para expats en la región de Haaglanden: alquiler, compraventa y asuntos con la administración.',
@@ -590,7 +590,7 @@ const es: UI = {
 const fr: UI = {
   logoSub: 'Conseil Juridique',
   home: 'Accueil',
-  nav: { diensten: 'Services', overons: 'À propos', spreekuur: 'Permanence', contact: 'Contact', cta: 'Prendre rendez-vous' },
+  nav: { diensten: 'Services', overons: 'À propos', spreekuur: 'Permanence', contact: 'Contact', cta: 'Prendre rendez-vous', menu: 'Menu', language: 'Langue' },
   ldDescription: "Cabinet de conseil juridique pour les expatriés de la région de Haaglanden : droit locatif, droit de la vente et démarches administratives.",
   footer: {
     about: "Conseil juridique et résolution de litiges pour les expatriés de la région de Haaglanden : droit locatif, droit de la vente et démarches administratives.",

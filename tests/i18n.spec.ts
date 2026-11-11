@@ -43,3 +43,17 @@ test('translated legal pages point to the binding Dutch version', async ({ page 
   await page.goto('/en/voorwaarden/');
   await expect(page.locator('.legal-note').getByRole('link', { name: 'Dutch version' })).toHaveAttribute('href', '/voorwaarden/');
 });
+
+test('on small screens the menu shows the links and the language choice', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 800 });
+  await page.addInitScript(() => sessionStorage.setItem('spreekuur-popup-seen', '1'));
+  await page.goto('/diensten/huurrecht/');
+  const menuButton = page.getByRole('button', { name: 'Menu' });
+  await expect(menuButton).toHaveAttribute('aria-expanded', 'false');
+  await menuButton.click();
+  await expect(menuButton).toHaveAttribute('aria-expanded', 'true');
+  const menu = page.locator('#mobilemenu');
+  await expect(menu.getByRole('link', { name: 'Over Ons' })).toBeVisible();
+  await menu.getByRole('link', { name: 'FR' }).click();
+  await expect(page).toHaveURL(/\/fr\/diensten\/huurrecht\/$/);
+});

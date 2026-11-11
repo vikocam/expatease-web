@@ -15,6 +15,13 @@ const { lang = 'nl', active = '', path = '/' } = Astro.props;
 const base = prefix(lang);
 const t = { ...ui[lang].nav };
 const switchTo = (l: Lang) => (path === '/' ? homeHref(l) : href(l, path));
+const langList: Lang[] = ['nl', 'en', 'es', 'fr'];
+const links = [
+  { key: 'diensten', href: `${base}/diensten/`, label: t.diensten, show: true },
+  { key: 'over-ons', href: `${base}/over-ons/`, label: t.overons, show: true },
+  { key: 'spreekuur', href: `${base}/spreekuur/`, label: t.spreekuur, show: SHOW_EXPATABLE },
+  { key: 'contact', href: `${base}/contact/`, label: t.contact, show: true },
+].filter((l) => l.show);
 
 ---
 <header class="site">
@@ -24,19 +31,54 @@ const switchTo = (l: Lang) => (path === '/' ? homeHref(l) : href(l, path));
       <span>EXPATAID<small>{ui[lang].logoSub}</small></span>
     </a>
     <nav class="mainnav">
-      <a href={`${base}/diensten/`} class={active==='diensten' ? 'active' : ''}>{t.diensten}</a>
-      <a href={`${base}/over-ons/`} class={active==='over-ons' ? 'active' : ''}>{t.overons}</a>
-      {SHOW_EXPATABLE && <a href={`${base}/spreekuur/`} class={active==='spreekuur' ? 'active' : ''}>{t.spreekuur}</a>}
-      <a href={`${base}/contact/`} class={active==='contact' ? 'active' : ''}>{t.contact}</a>
+      {links.map((l) => <a href={l.href} class={active===l.key ? 'active' : ''}>{l.label}</a>)}
     </nav>
     <div class="headright">
       <div class="langsel">
-        <a href={switchTo('nl')} hreflang="nl" lang="nl" class={lang==='nl' ? 'active' : ''} aria-current={lang==='nl' ? 'true' : undefined}>NL</a>
-        <a href={switchTo('en')} hreflang="en" lang="en" class={lang==='en' ? 'active' : ''} aria-current={lang==='en' ? 'true' : undefined}>EN</a>
-        <a href={switchTo('es')} hreflang="es" lang="es" class={lang==='es' ? 'active' : ''} aria-current={lang==='es' ? 'true' : undefined}>ES</a>
-        <a href={switchTo('fr')} hreflang="fr" lang="fr" class={lang==='fr' ? 'active' : ''} aria-current={lang==='fr' ? 'true' : undefined}>FR</a>
+        {langList.map((l) => (
+          <a href={switchTo(l)} hreflang={l} lang={l} class={lang===l ? 'active' : ''} aria-current={lang===l ? 'true' : undefined}>{l.toUpperCase()}</a>
+        ))}
       </div>
-      <a class="btn btn-gold" href={`${base}/contact/`} style="padding:10px 18px;font-size:13.5px">{t.cta}</a>
+      <a class="btn btn-gold headcta" href={`${base}/contact/`} style="padding:10px 18px;font-size:13.5px">{t.cta}</a>
+      <button class="menubtn" type="button" aria-expanded="false" aria-controls="mobilemenu">
+        <span class="menubtn-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="menubtn-text">{t.menu}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- menu for small screens: links, language and booking, opened by the Menu button -->
+  <div class="mobilemenu" id="mobilemenu">
+    <div class="wrap">
+      <nav class="mm-nav" aria-label={t.menu}>
+        {links.map((l) => <a href={l.href} class={active===l.key ? 'active' : ''} aria-current={active===l.key ? 'page' : undefined}>{l.label}</a>)}
+      </nav>
+      <p class="mm-label">{t.language}</p>
+      <div class="mm-langs">
+        {langList.map((l) => (
+          <a href={switchTo(l)} hreflang={l} lang={l} class={lang===l ? 'active' : ''} aria-current={lang===l ? 'true' : undefined}>{l.toUpperCase()}</a>
+        ))}
+      </div>
+      <a class="btn btn-gold mm-cta" href={`${base}/contact/`}>{t.cta}</a>
     </div>
   </div>
 </header>
+
+<script>
+  (function () {
+    const btn = document.querySelector<HTMLButtonElement>('.menubtn');
+    const panel = document.getElementById('mobilemenu');
+    if (!btn || !panel) return;
+    const setOpen = (open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      panel.classList.toggle('open', open);
+      document.documentElement.classList.toggle('menu-open', open);
+    };
+    btn.addEventListener('click', () => setOpen(btn.getAttribute('aria-expanded') !== 'true'));
+    panel.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) setOpen(false); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.classList.contains('open')) { setOpen(false); btn.focus(); }
+    });
+    matchMedia('(min-width: 881px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+  })();
+</script>
